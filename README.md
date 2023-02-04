@@ -1,7 +1,7 @@
 # weatherWidget
-##API used
+## API used
 https://openweathermap.org/current
 ---------------------------------
-##For start:
-*npm install
-*npm run start
+## For start:
+* npm install
+* npm run start
