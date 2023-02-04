@@ -24,15 +24,8 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref } from "vue";
-import { Icon } from '@iconify/vue';
-export default defineComponent({
-  components: {
-		Icon,
-	},
-  props: {
-    fetchDataResult: {
+<script lang="ts">
+interface fetchDataResult{
       base: String,
       clouds: { all: Number },
       cod: Number,
@@ -68,6 +61,15 @@ export default defineComponent({
         speed: Number
       }
     }
+
+import { defineComponent, PropType } from "vue";
+import { Icon } from '@iconify/vue';
+export default defineComponent({
+  components: {
+		Icon,
+	},
+  props: {
+    fetchDataResult: Object as PropType<fetchDataResult>
   },
   setup(props) {
     let img = `http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`;

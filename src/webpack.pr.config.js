@@ -5,9 +5,12 @@ const { VueLoaderPlugin } = require("vue-loader")
 const { DefinePlugin } = require("webpack")
 const path = require('path');
 module.exports = {
-    mode: "development",
     entry: {
         app: "./src/main.ts"
+    },
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'main.js',
     },
     module: {
         rules: [
@@ -20,7 +23,7 @@ module.exports = {
                 loader: "babel-loader"
             },
             {
-                test: /\.s(a|c)ss$/, 
+                test: /\.s(a|c)ss$/,
                 use: [
                     {
                         loader: "style-loader",
@@ -30,22 +33,15 @@ module.exports = {
                         options: {
                             importLoaders: 2,
                             modules: {
-                                // compileType: "module",
                                 mode: "global",
                             },
-                           
                         }
                     },
                     {
                         loader: "postcss-loader",
-                        // options: {
-                        //     postcssOptions: {
-                        //         plugins: [["postcss-preset-env", {}]],
-                        //     },
-                        // }
                     },
                     {
-                        loader: "sass-loader", // scss-loader
+                        loader: "sass-loader",
                         options: {
                             sourceMap: false,
                             implementation: require("sass")
@@ -53,7 +49,6 @@ module.exports = {
                     }
                 ]
             }
-
         ]
     },
     resolve: {

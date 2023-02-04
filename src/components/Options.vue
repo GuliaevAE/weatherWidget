@@ -1,6 +1,6 @@
 <template>
   <div class="options">
-    <span class="options_header">Settings</span>
+    <div class="options_header">Settings</div>
 
     <div
       @mousedown="mousedown"
@@ -23,8 +23,6 @@
         icon="ic:baseline-delete"
         height="25"
       />
-
-      <!-- <svg xmlns="http://www.w3.org/2000/svg" width="40" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> -->
     </div>
 
     <span>Add Location:</span>
@@ -45,7 +43,6 @@
 import { defineComponent, ref, PropType } from "vue";
 import { Icon } from "@iconify/vue";
 
-
 export default defineComponent({
   components: {  Icon },
   props: {
@@ -57,9 +54,7 @@ export default defineComponent({
 
   setup(props) {
     let switcher = ref<boolean>(false);
-
     let newCity = ref<string>("");
-    console.log("typeof props.addData", typeof props.addData);
     let addcity = props.addData;
     let deleteFetchDataResult = props.deleteFetchDataResult;
 

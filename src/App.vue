@@ -12,7 +12,7 @@
       />
     </div>
     <div class="container_wethers" v-if="switcher">
-      <Weather v-for="item in fetchDataResult" :key="item" :fetchDataResult="item" />
+      <Weather v-for="item in fetchDataResult" :key="item.name" :fetchDataResult="item" />
     </div>
 
     <Options
@@ -132,7 +132,7 @@ export default defineComponent({
 
     function deleteFetchDataResult(e){
       console.log(e.currentTarget.dataset.del)
-      fetchDataResult.value=fetchDataResult.value.filter(x=>x.name!==e.currentTarget.dataset.del)
+      fetchDataResult.value=fetchDataResult.value.filter(x=>x.name!==e.currentTarget.dataset.del.split(',')[0])
     }
 
     let switcher = ref<boolean>(true);
