@@ -1,4 +1,4 @@
-# weatherWidget
+# Weather widget
 ## API used
 https://openweathermap.org/current
 ---------------------------------
