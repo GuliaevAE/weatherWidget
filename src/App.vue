@@ -121,7 +121,7 @@ export default defineComponent({
     async function addData() {
       try {
         let asd = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${this.newCity}&APPID=951a5575c7c37cd3967e7155d77171fd`
+          `https://api.openweathermap.org/data/2.5/weather?q=${this.newCity}&APPID=951a5575c7c37cd3967e7155d77171fd&units=metric`
         );
         fetchDataResult.value.push(asd.data);
       } catch (error) {
@@ -164,7 +164,7 @@ export default defineComponent({
   height: 500px;
   overflow-y: auto;
   padding: 5px;
-  border: 2px solid rgb(14, 42, 182);
+  
 
   &::-webkit-scrollbar {
     width: 10px;

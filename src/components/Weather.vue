@@ -3,11 +3,12 @@
       <span class="weather_city">{{fetchDataResult.name}}, {{fetchDataResult.sys.country}}</span>
     <div class="weather_icon">
       <img :src="img" alt="icon" />
+      <div>
+        <span>Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
+      </div>
     </div> 
 
-    <div class="weather_temp">
-      <span>Feels like {{fetchDataResult.main.feels_like}}. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}</span>
-    </div>
+   
 
     <div class="weather_wind">
       <span><Icon icon="ic:baseline-speed"  />{{fetchDataResult.wind.speed}}m/s SSE</span>
@@ -19,7 +20,7 @@
             <span>Dew point: {{fetchDataResult.main.pressure}}°C</span>
     </div>
     <div class="weather_visibility">
-        <span>Visibility: {{fetchDataResult.visibility}}km</span>
+        <span>Visibility: {{fetchDataResult.visibility}}m</span>
     </div>
   </div>
 </template>
@@ -82,6 +83,7 @@ export default defineComponent({
 .weather {
   color: rgb(255, 255, 255);
   background: rgb(14, 42, 182);
+  
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -89,7 +91,14 @@ export default defineComponent({
   font-size: 18px;
   box-sizing: border-box;
   padding: 10px;
+  border-radius: 15px;
 
+  .weather_icon{
+    
+    display: flex;
+    align-items: center;
+   
+  }
   .weather_city{
     font-weight: 600;
   }
