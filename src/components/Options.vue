@@ -93,7 +93,8 @@ export default defineComponent({
   font-size: 18px;
   box-sizing: border-box;
   padding: 10px;
-  overflow-y: auto;
+  padding-right: 18px;
+  overflow-y:scroll;
   &::-webkit-scrollbar {
     width: 10px;
   }

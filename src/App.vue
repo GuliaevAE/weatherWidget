@@ -109,14 +109,19 @@ export default defineComponent({
       }
     };
     let error = ref<string>("");
-    const fetchDataResult = ref<{ name: string,sys:{country:string} }[]>([заглушка, заглушка2]);
+    const fetchDataResult = ref<{ name: string; sys: { country: string } }[]>([
+      
+      заглушка,
+      заглушка2
+    ]);
 
     let fetchDataResultCity = computed((): string[] => {
       let subarr = [];
-      fetchDataResult.value.forEach(x => subarr.push(x.name+', '+x.sys.country));
+      fetchDataResult.value.forEach(x =>
+        subarr.push(x.name + ", " + x.sys.country)
+      );
       return subarr;
     });
-    
 
     async function addData() {
       try {
@@ -125,14 +130,16 @@ export default defineComponent({
         );
         fetchDataResult.value.push(asd.data);
       } catch (error) {
-        this.error = "City entered incorrectly"
-        setTimeout(()=>this.error = "",1000)
+        this.error = "City entered incorrectly";
+        setTimeout(() => (this.error = ""), 1000);
       }
     }
 
-    function deleteFetchDataResult(e){
-      console.log(e.currentTarget.dataset.del)
-      fetchDataResult.value=fetchDataResult.value.filter(x=>x.name!==e.currentTarget.dataset.del.split(',')[0])
+    function deleteFetchDataResult(e) {
+      console.log(e.currentTarget.dataset.del);
+      fetchDataResult.value = fetchDataResult.value.filter(
+        x => x.name !== e.currentTarget.dataset.del.split(",")[0]
+      );
     }
 
     let switcher = ref<boolean>(true);
@@ -160,35 +167,39 @@ export default defineComponent({
   position: relative;
   font-family: Mona;
   font-weight: 600;
-  width: 300px;
+  width: 350px;
   height: 500px;
-  overflow-y: auto;
-  padding: 5px;
-  
-
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgb(14, 42, 182);
-    border: 1px solid white;
-  }
-
   .container_wethers {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-y: scroll;
+    height: 500px;
+    padding: 5px;
+    padding-right: 10px;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    &:hover::-webkit-scrollbar-thumb {
+      background: rgb(14, 42, 182);
+      border: 1px solid white;
+      border-radius: 5px;
+    }
   }
   .option {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 8%;
     transition: all 0.5s;
     color: rgb(14, 42, 182);
     z-index: 10;
 
     & .active {
-      color: white;
+      color: rgb(14, 42, 182);
+      background: white;
+      border-radius: 5px;
+      box-shadow: 3px 3px rgba(128, 128, 128, 0.712);
     }
   }
 }
