@@ -105,9 +105,38 @@ export default defineComponent({
   border-radius: 15px;
   box-shadow: 5px 5px rgba(128, 128, 128, 0.712);
 
+  background: rgb(83, 79, 193);
+  background: linear-gradient(
+    163deg,
+    rgba(83, 79, 193, 1) 24%,
+    rgba(43, 36, 171, 1) 41%,
+    rgba(99, 93, 212, 1) 58%
+  );
+  background-size: 300% 300%;
+  animation: gradient 10s ease infinite;
+  
+  @keyframes gradient {
+    0% {
+      background-position: 50% 0%;
+    }
+    50% {
+      background-position: 50% 100%;
+    }
+    100% {
+      background-position: 50% 0%;
+    }
+  }
+
   .weather_icon {
     display: flex;
     align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    img {
+      background: rgba(18, 49, 205, 0);
+      border-radius: 15px;
+      box-shadow: 5px 5px rgba(192, 192, 192, 0.712),0 0 0px 1px rgb(115, 126, 230),;
+    }
   }
   .weather_city {
     font-weight: 600;
@@ -116,9 +145,9 @@ export default defineComponent({
   .weather_humidity,
   .weather_visibility {
     display: flex;
-   
+
     width: 100%;
-    
+
     div {
       display: flex;
       width: 50%;
