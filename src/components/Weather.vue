@@ -1,5 +1,5 @@
 <template>
-  <div class="weather">
+  <div class="weather" v-bind:style="styleObject">
     <span class="weather_city">{{fetchDataResult.name}}, {{fetchDataResult.sys.country}}</span>
     <div class="weather_icon">
       <img :src="img" alt="icon" />
@@ -75,18 +75,26 @@ interface fetchDataResult {
   };
 }
 
-import { defineComponent, PropType } from "vue";
+interface styleObject{
+  background:String
+borderColor:String
+}
+
+import { defineComponent, ref, PropType } from "vue";
 import { Icon } from "@iconify/vue";
 export default defineComponent({
   components: {
     Icon
   },
   props: {
-    fetchDataResult: Object as PropType<fetchDataResult>
+    fetchDataResult: Object as PropType<fetchDataResult>,
+    styleObject: Object
   },
   setup(props) {
     let img = `http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`;
-    return { img };
+   
+    let styleObject = ref(props.styleObject);
+    return { img, styleObject };
   }
 });
 </script>
@@ -94,7 +102,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .weather {
   color: rgb(255, 255, 255);
-  background: rgb(14, 42, 182);
+  background: rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -103,29 +111,8 @@ export default defineComponent({
   box-sizing: border-box;
   padding: 10px;
   border-radius: 15px;
-  box-shadow: 5px 5px rgba(128, 128, 128, 0.712);
-
-  background: rgb(83, 79, 193);
-  background: linear-gradient(
-    163deg,
-    rgba(83, 79, 193, 1) 24%,
-    rgba(43, 36, 171, 1) 41%,
-    rgba(99, 93, 212, 1) 58%
-  );
-  background-size: 300% 300%;
-  animation: gradient 10s ease infinite;
-  
-  @keyframes gradient {
-    0% {
-      background-position: 50% 0%;
-    }
-    50% {
-      background-position: 50% 100%;
-    }
-    100% {
-      background-position: 50% 0%;
-    }
-  }
+  box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
+          5px 5px rgb(192, 192, 192);
 
   .weather_icon {
     display: flex;
@@ -135,7 +122,8 @@ export default defineComponent({
     img {
       background: rgba(18, 49, 205, 0);
       border-radius: 15px;
-      box-shadow: 5px 5px rgba(192, 192, 192, 0.712),0 0 0px 1px rgb(115, 126, 230),;
+      box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
+        5px 5px rgb(192, 192, 192), 5px 5px 0 1px rgba(255, 0, 0, 0.712);
     }
   }
   .weather_city {

@@ -1,8 +1,8 @@
 <template>
-  <div class="options">
+  <div class="options" v-bind:style="styleObject">
     <div class="options_header">Settings</div>
-
-    <div
+    <div class="options_items">
+      <div
       @mousedown="mousedown"
       @mouseup="mouseup"
       class="options_city"
@@ -24,6 +24,8 @@
         height="25"
       />
     </div>
+    </div>
+    
 
     <span>Add Location:</span>
     <div class="options_addCity">
@@ -44,12 +46,13 @@ import { defineComponent, ref, PropType } from "vue";
 import { Icon } from "@iconify/vue";
 
 export default defineComponent({
-  components: {  Icon },
+  components: { Icon },
   props: {
     fetchDataResultCity: Array as PropType<string[]>,
     addData: Function,
     deleteFetchDataResult: Function as PropType<(e) => void>,
-    error: String
+    error: String,
+    styleObject: Object
   },
 
   setup(props) {
@@ -70,7 +73,7 @@ export default defineComponent({
       this.$emit("remove", { from: this.from, to: e.target.dataset.id });
       this.from = null;
     }
-
+    let styleObject = ref(props.styleObject);
     return {
       switcher,
       mousedown,
@@ -79,7 +82,8 @@ export default defineComponent({
       newCity,
       addcity,
       error,
-      deleteFetchDataResult
+      deleteFetchDataResult,
+      styleObject
     };
   }
 });
@@ -87,21 +91,33 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .options {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   font-size: 18px;
   box-sizing: border-box;
   padding: 10px;
-  padding-right: 18px;
-  overflow-y:scroll;
-  &::-webkit-scrollbar {
-    width: 10px;
+  gap: 5px;
+  
+  background: rgb(0, 0, 0);
+  border-radius: 15px;
+  box-shadow: 5px 5px rgba(128, 128, 128, 0.712);
+  color: white;
+
+  .options_items{
+    overflow-y: scroll;
+    padding-right: 5px;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgb(255, 255, 255);
+      border: 1px solid red;
+      border-radius: 5px;
+    }
   }
-  &::-webkit-scrollbar-thumb {
-    background: rgb(14, 42, 182);
-    border: 1px solid white;
-  }
+  
   .options_header {
     font-weight: 700;
   }
@@ -109,10 +125,10 @@ export default defineComponent({
     position: relative;
     display: flex;
     align-items: center;
-    padding: 5px 0;
+    padding: 2px 0;
     margin: 5px 0;
-    color: white;
-    background: rgb(14, 42, 182);
+    color: black;
+    background: white;
     cursor: move;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -129,10 +145,13 @@ export default defineComponent({
     }
     .options_city_delete {
       position: absolute;
-      color: white;
+      color: black;
       right: 0;
       cursor: default;
       transition: all 0.3s;
+      &:hover {
+        color: red;
+      }
     }
   }
 
@@ -140,14 +159,14 @@ export default defineComponent({
     display: flex;
 
     input {
-      border: 1px solid rgb(14, 42, 182);
+      border: 1px solid red;
       width: 100%;
-      color: rgb(14, 42, 182);
+      color: red;
       padding: 0 5px;
       font-size: 20px;
     }
     .options_addCity_icon {
-      color: rgb(14, 42, 182);
+      color: white;
     }
   }
   .options_error {

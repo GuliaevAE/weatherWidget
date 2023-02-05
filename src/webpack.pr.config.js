@@ -3,6 +3,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { VueLoaderPlugin } = require("vue-loader")
 const { DefinePlugin } = require("webpack")
+const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 const path = require('path');
 module.exports = {
     entry: {
@@ -67,7 +68,8 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: "./src/index.html"
-        })
+        }),
+        new HTMLInlineCSSWebpackPlugin(),
     ],
     devtool: "source-map",
     devServer: {
