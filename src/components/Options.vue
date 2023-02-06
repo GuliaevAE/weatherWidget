@@ -6,6 +6,7 @@
         @mousedown="mousedown"
         @mouseup="mouseup"
         class="options_city"
+        v-bind:style="{background:styleObject.color, color:styleObject.background}"
         v-for="(item,k) in fetchDataResultCity"
         :key="item"
         :data-id="k"
@@ -28,12 +29,13 @@
 
     <span>Add Location:</span>
     <div class="options_addCity">
-      <input v-model="newCity" type="text" />
+      <input v-model="newCity" type="text" v-bind:style="{background:styleObject.color, color:styleObject.background}"/>
       <Icon
         @click="addcity(newCity)"
         class="options_addCity_icon"
         icon="material-symbols:add"
         height="40"
+        v-bind:style="{color:styleObject.color}"
       />
     </div>
     <span class="options_error">{{error}}</span>
@@ -144,13 +146,9 @@ export default defineComponent({
     }
     .options_city_delete {
       position: absolute;
-      color: black;
       right: 0;
       cursor: default;
-      transition: all 0.3s;
-      &:hover {
-        color: red;
-      }
+      
     }
   }
 
@@ -158,7 +156,6 @@ export default defineComponent({
     display: flex;
 
     input {
-      border: 1px solid red;
       width: 100%;
       color: red;
       padding: 0 5px;
