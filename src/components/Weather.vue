@@ -4,7 +4,7 @@
       <span>{{fetchDataResult.name}}</span>
       <div
         class="weather_header_clock"
-        v-bind:style="[styleObject, {boxShadow:'1px 1px '+styleObject.boxShadow2+', 0 0 0 1px '+styleObject.boxShadow1+',inset 5px 5px '+styleObject.boxShadow3}]"
+        v-bind:style="[styleObject, {boxShadow:'-1px -1px '+styleObject.boxShadow1+', 0 0 0 0.5px '+styleObject.boxShadow2+',inset 5px 5px '+styleObject.boxShadow3}]"
       >
         <span>{{clock}}</span>
       </div>
@@ -159,6 +159,7 @@ export default defineComponent({
     align-items: center;
     text-transform: uppercase;
     .weather_header_clock {
+      position: relative;
       align-self: baseline;
       width: 30%;
       min-width: 85px;
@@ -170,6 +171,7 @@ export default defineComponent({
       padding-right: 2px;
       margin-left:5px ;
       box-shadow: inset 5px 5px 5px black;
+      font-size:17px
     }
   }
   .weather_wind,

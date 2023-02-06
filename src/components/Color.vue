@@ -4,7 +4,7 @@
       <div @click="switcher='Background'" v-bind:style="styleObject">Background</div>
       <div @click="switcher='Shadow'" v-bind:style="styleObject">Shadow</div>
     </div>
-    <KeepAlive>
+   
       <div v-if="switcher==='Background'">
         <div class="color_item">
           <span>Background:</span>
@@ -15,8 +15,7 @@
           <input type="color" @input="changeStyle($event, 'Color')" v-model="styleObject.color"/>
         </div>
       </div>
-    </KeepAlive>
-    <KeepAlive>
+   
       <div v-if="switcher==='Shadow'">
         <div class="color_item">
           <span>Box-shadow 1:</span>
@@ -31,7 +30,7 @@
           <input type="color" @input="changeStyle($event, 'Box-shadow 3')" v-model="styleObject.boxShadow3"/>
         </div>
       </div>
-    </KeepAlive>
+   
     <div class="color_buttons">
       <!-- <Icon icon="material-symbols:save" height="35" /> -->
       <div>
