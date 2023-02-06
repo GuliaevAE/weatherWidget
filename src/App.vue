@@ -4,32 +4,28 @@
 <template>
   <div class="container">
     <div class="container_wethers">
-      <Transition>
-        <Weather
-          v-if="switcher==='Weather'"
-          :fetchDataResult="fetchDataResult[countOfWeather]"
-          :styleObject="styleObject"
-        />
-      </Transition>
-      <Transition>
-        <Options
-          v-if="switcher==='Option'"
-          :styleObject="styleObject"
-          @remove="[this.fetchDataResult[$event.from], this.fetchDataResult[$event.to]] = [this.fetchDataResult[$event.to], this.fetchDataResult[$event.from]]"
-          @del=" fetchDataResult=fetchDataResult.filter(x=>x.name!==$event)"
-          :addData="addData"
-          :deleteFetchDataResult="deleteFetchDataResult"
-          :error="error"
-          :fetchDataResultCity="fetchDataResultCity"
-        />
-      </Transition>
-      <Transition>
-        <Color
-          v-if="switcher==='Color'"
-          :changeBackgroundColor="changeBackgroundColor"
-          :styleObject="styleObject"
-        />
-      </Transition>
+      <Weather
+        v-if="switcher==='Weather'"
+        :fetchDataResult="fetchDataResult[countOfWeather]"
+        :styleObject="styleObject"
+      />
+
+      <Options
+        v-if="switcher==='Option'"
+        :styleObject="styleObject"
+        @remove="[this.fetchDataResult[$event.from], this.fetchDataResult[$event.to]] = [this.fetchDataResult[$event.to], this.fetchDataResult[$event.from]]"
+        @del=" fetchDataResult=fetchDataResult.filter(x=>x.name!==$event)"
+        :addData="addData"
+        :deleteFetchDataResult="deleteFetchDataResult"
+        :error="error"
+        :fetchDataResultCity="fetchDataResultCity"
+      />
+
+      <Color
+        v-if="switcher==='Color'"
+        :changeStyle="changeStyle"
+        :styleObject="styleObject"
+      />
 
       <div class="container_wethers_minimenu">
         <div class="container_wethers_minimenu_settings" :style="styleObject">
@@ -38,32 +34,37 @@
             @click="switcher='Weather'"
             icon="fluent:weather-cloudy-48-filled"
             height="30"
+             :style="{color:styleObject.color}"
           />
           <Icon
             class="container_wethers_minimenu_settings_icon"
             @click="switcher='Option'"
             icon="ion:options"
             height="30"
+             :style="{color:styleObject.color}"
           />
           <Icon
             class="container_wethers_minimenu_settings_icon"
             @click="switcher='Color'"
             height="30"
             icon="ic:baseline-color-lens"
+            :style="{color:styleObject.color}"
           />
         </div>
         <div class="container_wethers_minimenu_arrows" :style="styleObject">
-          <Icon
+          <Icon 
             height="30"
             class="container_wethers_arrow"
             icon="material-symbols:arrow-circle-left"
             @click="selectNewWeather('prev')"
+            :style="{color:styleObject.color}"
           />
           <Icon
             height="30"
             class="container_wethers_arrow"
             icon="material-symbols:arrow-circle-right"
             @click="selectNewWeather('next')"
+            :style="{color:styleObject.color}"
           />
         </div>
       </div>
@@ -188,7 +189,6 @@ export default defineComponent({
     }
 
     function deleteFetchDataResult(e) {
-      console.log(e.currentTarget.dataset.del);
       fetchDataResult.value = fetchDataResult.value.filter(
         x => x.name !== e.currentTarget.dataset.del.split(",")[0]
       );
@@ -215,22 +215,46 @@ export default defineComponent({
       this.countOfWeather = swtcher;
     }
 
+    let boxShadow1 = ref<string>("1px 1px rgb(247, 3, 3),");
+    let boxShadow2 = ref<string>(`0 0 0px 1px rgb(236, 236, 236),`);
+    let boxShadow3 = ref<string>(" 5px 5px rgba(192, 192, 192, 0.712)");
+
     let styleObject = ref({
       background: "",
-      boxShadow: `1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236), 5px 5px rgba(192, 192, 192, 0.712)`
+      boxShadow: boxShadow1.value + boxShadow2.value + boxShadow3.value,
+      color: ""
     });
 
-    function changeBackgroundColor(e, tag) {
+    function changeStyle(e, tag) {
       switch (tag) {
         case "Background":
           styleObject.value.background = e.target.value;
           break;
 
         case "Box-shadow 1":
-          styleObject.value.boxShadow = `1px 1px rgb(247, 3, 3), 0 0 0px 1px ${e.target.value}, 5px 5px rgba(192, 192, 192, 0.712)`;
-          break;
+          styleObject.value.boxShadow =
+            ` 1px 1px ${e.target.value},` + boxShadow2.value + boxShadow3.value;
+          boxShadow1.value = ` 1px 1px${e.target.value},`;
 
-        
+          break;
+        case "Box-shadow 2":
+          styleObject.value.boxShadow =
+            boxShadow1.value +
+            ` 0 0 0px 1px ${e.target.value},` +
+            boxShadow3.value;
+          boxShadow2.value = ` 0 0 0px 1px ${e.target.value},`;
+
+          break;
+        case "Box-shadow 3":
+          styleObject.value.boxShadow =
+            boxShadow1.value + boxShadow2.value + ` 5px 5px ${e.target.value}`;
+          boxShadow3.value = ` 5px 5px ${e.target.value}`;
+
+          break;
+        case "Color":
+          styleObject.value.color = `${e.target.value}`;
+
+          break;
       }
     }
     return {
@@ -243,8 +267,11 @@ export default defineComponent({
       countOfWeather,
       selectNewWeather,
       switchNewWeather,
-      changeBackgroundColor,
-      styleObject
+      changeStyle,
+      styleObject,
+      boxShadow1,
+      boxShadow2,
+      boxShadow3
     };
   }
 });

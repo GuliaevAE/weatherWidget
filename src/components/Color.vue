@@ -3,16 +3,24 @@
     <div>Color</div>
     <div class="color_item">
       <span>Background:</span>
-      <input type="color" @input="changeBackgroundColor($event, 'Background')" />
+      <input type="color" @input="changeStyle($event, 'Background')" />
     </div>
     <div class="color_item">
       <span>Box-shadow 1:</span>
-      <input type="color" @input="changeBackgroundColor($event, 'Box-shadow 1')" />
+      <input type="color" @input="changeStyle($event, 'Box-shadow 1')" />
     </div>
-    <!-- <div class="color_item">
-        <span>Box-shadow 2:</span> 
-        <input type="color"  @input="changeBackgroundColor($event, 'Box-shadow 2')">
-    </div>-->
+    <div class="color_item">
+      <span>Box-shadow 2:</span>
+      <input type="color" @input="changeStyle($event, 'Box-shadow 2')" />
+    </div>
+    <div class="color_item">
+      <span>Box-shadow 3:</span>
+      <input type="color" @input="changeStyle($event, 'Box-shadow 3')" />
+    </div>
+    <div class="color_item">
+        <span>Color:</span>
+        <input type="color" @input="changeStyle($event, 'Color')" />
+      </div>
   </div>
 </template>
 
@@ -23,15 +31,15 @@ import { Icon } from "@iconify/vue";
 export default defineComponent({
   components: { Icon },
   props: {
-    changeBackgroundColor: Function as PropType<(e1, e2) => void>,
+    changeStyle: Function as PropType<(e1, e2) => void>,
     styleObject: Object
   },
 
   setup(props) {
-    let changeBackgroundColor = props.changeBackgroundColor;
+    let changeStyle = props.changeStyle;
 
     let styleObject = ref(props.styleObject);
-    return { changeBackgroundColor, styleObject };
+    return { changeStyle, styleObject };
   }
 });
 </script>

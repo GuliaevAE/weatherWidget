@@ -1,8 +1,8 @@
 <template>
   <div class="weather" v-bind:style="styleObject">
     <span class="weather_city">{{fetchDataResult.name}}, {{fetchDataResult.sys.country}}</span>
-    <div class="weather_icon">
-      <img :src="img" alt="icon" />
+    <div class="weather_icon" >
+      <img :src="img" alt="icon" v-bind:style="styleObject" />
       <div>
         <span>Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
       </div>
