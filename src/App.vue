@@ -299,7 +299,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @font-face {
   font-family: Mona;
-  src: url(./style/Mona-Sans-Light.otf);
+  src: url(./style/MultiroundPro.otf);
 }
 .container {
   position: relative;

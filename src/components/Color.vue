@@ -86,9 +86,9 @@ export default defineComponent({
     display: flex;
     gap: 2px;
     div {
-      padding: 3px 5px;
+      padding: 5px 8px;
       border-radius: 15px;
-      font-size: 15px;
+      font-size: 12px;
     }
   }
 
