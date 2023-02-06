@@ -102,6 +102,7 @@ export default defineComponent({
   background: rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 5px;
   width: 100%;
   font-size: 18px;

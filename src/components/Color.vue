@@ -72,7 +72,7 @@ export default defineComponent({
   font-size: 18px;
   box-sizing: border-box;
   padding: 10px;
-
+    padding-bottom: 30px;
   gap: 5px;
   min-width: 100px;
   min-height: 100px;

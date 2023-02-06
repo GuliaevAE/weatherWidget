@@ -305,8 +305,8 @@ export default defineComponent({
   position: relative;
   font-family: Mona;
   font-weight: 600;
-  width: 400px;
-  height: 270px;
+  max-width: 350px;
+  
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -316,7 +316,8 @@ export default defineComponent({
     height: 100%;
     overflow: hidden;
     gap: 5px;
-    padding: 5px;
+    padding: 10px;
+    
     padding-right: 10px;
     &::-webkit-scrollbar {
       width: 10px;
@@ -336,7 +337,7 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       gap: 5px;
-
+z-index: 1;
       .container_wethers_minimenu_settings,
       .container_wethers_minimenu_arrows {
         height: 50%;
@@ -381,6 +382,26 @@ export default defineComponent({
       }
     }
   }
+}
+
+
+@media (max-width: 300px) {
+  .container{
+    .container_wethers{
+      flex-direction: column;
+      .container_wethers_minimenu{
+        flex-direction: row;
+        
+        .container_wethers_minimenu_settings,
+        .container_wethers_minimenu_arrows {
+          flex-direction: row;
+          width: 50%;
+        }
+       
+      }
+    }
+  }
+  
 }
 </style>
 
