@@ -229,7 +229,7 @@ export default defineComponent({
       boxShadow3: boxShadow3.value,
 
       background: "#000000",
-      boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`,
+      boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`,
       color: "#ffffff"
     });
 
@@ -240,17 +240,17 @@ export default defineComponent({
           break;
 
         case "Box-shadow 1":
-          styleObject.value.boxShadow = `1px 1px ${e.target.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
+          styleObject.value.boxShadow = `1px 1px ${e.target.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
           boxShadow1.value = `${e.target.value}`;
 
           break;
         case "Box-shadow 2":
-          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${e.target.value}, 5px 5px ${boxShadow3.value}`;
+          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${e.target.value}, 5px 5px ${boxShadow3.value}`;
           boxShadow2.value = `${e.target.value}`;
 
           break;
         case "Box-shadow 3":
-          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${e.target.value}`;
+          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${e.target.value}`;
           boxShadow3.value = `${e.target.value}`;
 
           break;
@@ -270,7 +270,7 @@ export default defineComponent({
       styleObject.value.boxShadow3=boxShadow3.value
       styleObject.value.background = "#000000";
       styleObject.value.color = "#ffffff";
-      styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
+      styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
     }
     return {
       fetchDataResult,
@@ -350,7 +350,7 @@ z-index: 1;
         gap: 10px;
         align-items: center;
         justify-content: space-around;
-        box-shadow: 1px 1px #f70303, 0 0 0 1px #ececec,
+        box-shadow: 1px 1px #f70303, 0 0 0px 0.5px #ececec,
           5px 5px #c0c0c0;
 
         .container_wethers_minimenu_settings_icon {
@@ -372,7 +372,7 @@ z-index: 1;
       border-radius: 50%;
 
       background: black;
-      box-shadow: 1px 1px #f70303, 0 0 0px 1px rgb(236, 236, 236),
+      box-shadow: 1px 1px #f70303, 0 0 0px 0.5px rgb(236, 236, 236),
         5px 5px rgba(192, 192, 192, 0.712);
       transition: all 0.3s;
       &:hover {
