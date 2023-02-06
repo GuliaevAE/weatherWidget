@@ -156,6 +156,7 @@ export default defineComponent({
     display: flex;
 
     input {
+      border: none;
       width: 100%;
       color: red;
       padding: 0 5px;
