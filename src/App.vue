@@ -221,7 +221,7 @@ export default defineComponent({
 
     let boxShadow1 = ref<string>("#f70303");
     let boxShadow2 = ref<string>("#ececec");
-    let boxShadow3 = ref<string>("#c0c0c0b6");
+    let boxShadow3 = ref<string>("#c0c0c0");
 
     let styleObject = ref({
       boxShadow1: boxShadow1.value,
@@ -264,7 +264,7 @@ export default defineComponent({
     function setDefaultStyle() {
       boxShadow1.value = "#f70303";
       boxShadow2.value = "#ececec";
-      boxShadow3.value = "#c0c0c0b6";
+      boxShadow3.value = "#c0c0c0";
       styleObject.value.boxShadow1=boxShadow1.value
       styleObject.value.boxShadow2=boxShadow2.value
       styleObject.value.boxShadow3=boxShadow3.value
@@ -350,7 +350,7 @@ z-index: 1;
         align-items: center;
         justify-content: space-around;
         box-shadow: 1px 1px #f70303, 0 0 0 1px #ececec,
-          5px 5px #c0c0c0b6;
+          5px 5px #c0c0c0;
 
         .container_wethers_minimenu_settings_icon {
           color: white;
