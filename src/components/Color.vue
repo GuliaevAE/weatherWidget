@@ -8,11 +8,11 @@
       <div v-if="switcher==='Background'">
         <div class="color_item">
           <span>Background:</span>
-          <input type="color" @input="changeStyle($event, 'Background')" />
+          <input type="color" @input="changeStyle($event, 'Background')" v-model="styleObject.background" />
         </div>
         <div class="color_item">
           <span>Color:</span>
-          <input type="color" @input="changeStyle($event, 'Color')" />
+          <input type="color" @input="changeStyle($event, 'Color')" v-model="styleObject.color"/>
         </div>
       </div>
     </KeepAlive>
@@ -20,15 +20,15 @@
       <div v-if="switcher==='Shadow'">
         <div class="color_item">
           <span>Box-shadow 1:</span>
-          <input type="color" @input="changeStyle($event, 'Box-shadow 1')" />
+          <input type="color" @input="changeStyle($event, 'Box-shadow 1')" v-model="styleObject.boxShadow1"/>
         </div>
         <div class="color_item">
           <span>Box-shadow 2:</span>
-          <input type="color" @input="changeStyle($event, 'Box-shadow 2')" />
+          <input type="color" @input="changeStyle($event, 'Box-shadow 2')" v-model="styleObject.boxShadow2"/>
         </div>
         <div class="color_item">
           <span>Box-shadow 3:</span>
-          <input type="color" @input="changeStyle($event, 'Box-shadow 3')" />
+          <input type="color" @input="changeStyle($event, 'Box-shadow 3')" v-model="styleObject.boxShadow3"/>
         </div>
       </div>
     </KeepAlive>
@@ -80,7 +80,7 @@ export default defineComponent({
   background: rgb(0, 0, 0);
   border-radius: 15px;
   box-shadow: 5px 5px rgba(128, 128, 128, 0.712);
-  color: white;
+  color: rgb(255, 255, 255);
   .color_settings {
     width: 100%;
     display: flex;

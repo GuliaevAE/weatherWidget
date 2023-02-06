@@ -219,14 +219,18 @@ export default defineComponent({
       this.countOfWeather = swtcher;
     }
 
-    let boxShadow1 = ref<string>("rgb(247, 3, 3)");
-    let boxShadow2 = ref<string>(`rgb(236, 236, 236)`);
-    let boxShadow3 = ref<string>("rgba(192, 192, 192, 0.712)");
+    let boxShadow1 = ref<string>("#f70303");
+    let boxShadow2 = ref<string>("#ececec");
+    let boxShadow3 = ref<string>("#c0c0c0b6");
 
     let styleObject = ref({
-      background: "black",
-      boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`,
-      color: "white"
+      boxShadow1: boxShadow1.value,
+      boxShadow2: boxShadow2.value,
+      boxShadow3: boxShadow3.value,
+
+      background: "#000000",
+      boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`,
+      color: "#ffffff"
     });
 
     function changeStyle(e, tag) {
@@ -236,20 +240,17 @@ export default defineComponent({
           break;
 
         case "Box-shadow 1":
-          styleObject.value.boxShadow =
-            `1px 1px ${e.target.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
+          styleObject.value.boxShadow = `1px 1px ${e.target.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
           boxShadow1.value = `${e.target.value}`;
 
           break;
         case "Box-shadow 2":
-          styleObject.value.boxShadow =
-           `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${e.target.value}, 5px 5px ${boxShadow3.value}`
+          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${e.target.value}, 5px 5px ${boxShadow3.value}`;
           boxShadow2.value = `${e.target.value}`;
 
           break;
         case "Box-shadow 3":
-          styleObject.value.boxShadow =
-            `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${e.target.value}`
+          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${e.target.value}`;
           boxShadow3.value = `${e.target.value}`;
 
           break;
@@ -261,13 +262,15 @@ export default defineComponent({
     }
 
     function setDefaultStyle() {
-      boxShadow1.value = "rgb(247, 3, 3)"
-      boxShadow2.value = "rgb(236, 236, 236)"
-      boxShadow3.value = "rgba(192, 192, 192, 0.712)"
-      styleObject.value.background = "black"
-      styleObject.value.color="white"
-      styleObject.value.boxShadow =
-            `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
+      boxShadow1.value = "#f70303";
+      boxShadow2.value = "#ececec";
+      boxShadow3.value = "#c0c0c0b6";
+      styleObject.value.boxShadow1=boxShadow1.value
+      styleObject.value.boxShadow2=boxShadow2.value
+      styleObject.value.boxShadow3=boxShadow3.value
+      styleObject.value.background = "#000000";
+      styleObject.value.color = "#ffffff";
+      styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 1px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
     }
     return {
       fetchDataResult,
@@ -321,7 +324,7 @@ export default defineComponent({
 
     &:hover::-webkit-scrollbar-thumb {
       background: rgb(14, 42, 182);
-      border: 1px solid white;
+      border: 1px solid #ffffff;
       border-radius: 5px;
     }
 
@@ -339,14 +342,14 @@ export default defineComponent({
         height: 50%;
         padding: 15px 5px;
         border-radius: 15px;
-        background: black;
+        background: #000000;
         display: flex;
         flex-direction: column;
         gap: 10px;
         align-items: center;
         justify-content: space-around;
-        box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
-          5px 5px rgba(192, 192, 192, 0.712);
+        box-shadow: 1px 1px #f70303, 0 0 0 1px #ececec,
+          5px 5px #c0c0c0b6;
 
         .container_wethers_minimenu_settings_icon {
           color: white;
@@ -367,7 +370,7 @@ export default defineComponent({
       border-radius: 50%;
 
       background: black;
-      box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
+      box-shadow: 1px 1px #f70303, 0 0 0px 1px rgb(236, 236, 236),
         5px 5px rgba(192, 192, 192, 0.712);
       transition: all 0.3s;
       &:hover {
