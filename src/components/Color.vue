@@ -34,7 +34,10 @@
     </KeepAlive>
     <div class="color_buttons">
       <!-- <Icon icon="material-symbols:save" height="35" /> -->
-      <Icon @click="setDefaultStyle" icon="material-symbols:disabled-by-default" height="35" />
+      <div>
+        <Icon @click="setDefaultStyle" icon="material-symbols:disabled-by-default" height="35"  />
+      </div>
+      
     </div>
   </div>
 </template>
@@ -69,7 +72,7 @@ export default defineComponent({
   flex-direction: column;
   position: relative;
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
     padding-bottom: 30px;
@@ -103,6 +106,9 @@ export default defineComponent({
     align-items: center;
     justify-content: space-between;
     input {
+        height: 20px;
+        width: 20px;
+        padding: 0;
       &::-webkit-color-swatch {
         border: none;
       }

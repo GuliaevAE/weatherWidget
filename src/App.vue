@@ -299,7 +299,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @font-face {
   font-family: Mona;
-  src: url(./style/MultiroundPro.otf);
+  src: url(./style/TestSöhne-Fett.otf);
 }
 .container {
   position: relative;
@@ -317,6 +317,7 @@ export default defineComponent({
     overflow: hidden;
     gap: 5px;
     padding: 10px;
+    
     
     padding-right: 10px;
     &::-webkit-scrollbar {

@@ -1,7 +1,7 @@
 <template>
   <div class="weather" v-bind:style="styleObject">
     <span class="weather_city">{{fetchDataResult.name}}, {{fetchDataResult.sys.country}}</span>
-    <div class="weather_icon" >
+    <div class="weather_icon">
       <img :src="img" alt="icon" v-bind:style="styleObject" />
       <div>
         <span>Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
@@ -10,29 +10,29 @@
 
     <div class="weather_wind">
       <div>
-        <Icon icon="ic:baseline-speed" />
+        <Icon icon="ic:baseline-speed" height="20" />
         <span>{{fetchDataResult.wind.speed}}m/s</span>
       </div>
 
       <div>
-        <Icon icon="mdi:compass" />
+        <Icon icon="mdi:compass" height="20" />
         <span>{{fetchDataResult.wind.deg}}hPa</span>
       </div>
     </div>
 
     <div class="weather_humidity">
       <div>
-        <Icon icon="material-symbols:humidity-percentage" />
+        <Icon icon="material-symbols:humidity-percentage" height="20" />
         <span>{{fetchDataResult.main.humidity}}%</span>
       </div>
       <div>
-        <Icon icon="mdi:dew-point" />
+        <Icon icon="mdi:dew-point" height="20" />
         <span>{{fetchDataResult.main.pressure}}°C</span>
       </div>
     </div>
     <div class="weather_visibility">
       <div>
-        <Icon icon="material-symbols:visibility" />
+        <Icon icon="material-symbols:visibility" height="20" />
         <span>{{fetchDataResult.visibility}}m</span>
       </div>
     </div>
@@ -76,7 +76,6 @@ interface fetchDataResult {
 }
 
 
-
 import { defineComponent, ref, PropType } from "vue";
 import { Icon } from "@iconify/vue";
 export default defineComponent({
@@ -89,7 +88,7 @@ export default defineComponent({
   },
   setup(props) {
     let img = `http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`;
-   
+
     let styleObject = ref(props.styleObject);
     return { img, styleObject };
   }
@@ -98,6 +97,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .weather {
+
   color: rgb(255, 255, 255);
   background: rgb(0, 0, 0);
   display: flex;
@@ -105,12 +105,12 @@ export default defineComponent({
   justify-content: space-between;
   gap: 5px;
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
   border-radius: 15px;
   box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
-          5px 5px rgb(192, 192, 192);
+    5px 5px rgb(192, 192, 192);
 
   .weather_icon {
     display: flex;
@@ -125,7 +125,8 @@ export default defineComponent({
     }
   }
   .weather_city {
-    font-weight: 600;
+    font-size: 18px;
+    
   }
   .weather_wind,
   .weather_humidity,

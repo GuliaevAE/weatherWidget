@@ -1,6 +1,6 @@
 <template>
   <div class="options" v-bind:style="styleObject">
-    <div class="options_header">Settings</div>
+    <div class="options_header h">Settings</div>
     <div class="options_items">
       <div
         @mousedown="mousedown"
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <span>Add Location:</span>
+    <span class="h">Add Location:</span>
     <div class="options_addCity">
       <input v-model="newCity" type="text" v-bind:style="{background:styleObject.color, color:styleObject.background}"/>
       <Icon
@@ -96,7 +96,7 @@ export default defineComponent({
   flex-direction: column;
   position: relative;
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
   gap: 5px;
@@ -106,9 +106,13 @@ export default defineComponent({
   box-shadow: 5px 5px rgba(128, 128, 128, 0.712);
   color: white;
 
+  .h{
+    font-size: 18px;
+  }
   .options_items {
     overflow-y: scroll;
     padding-right: 5px;
+    
     &::-webkit-scrollbar {
       width: 10px;
     }
@@ -130,6 +134,7 @@ export default defineComponent({
     margin: 5px 0;
     color: black;
     background: white;
+    border-radius: 5px;
     cursor: move;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -157,6 +162,7 @@ export default defineComponent({
 
     input {
       border: none;
+      border-radius: 5px;
       width: 100%;
       color: red;
       padding: 0 5px;

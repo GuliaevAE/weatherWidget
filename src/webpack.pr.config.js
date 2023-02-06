@@ -24,6 +24,13 @@ module.exports = {
                 loader: "babel-loader"
             },
             {
+                test: /\.svg$/,
+                use: [
+                    'babel-loader',
+                    'vue-svg-loader',
+                ],
+            },
+            {
                 test: /\.s(a|c)ss$/,
                 use: [
                     {
