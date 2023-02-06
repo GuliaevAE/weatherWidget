@@ -1,7 +1,17 @@
 <template>
   <div class="weather" v-bind:style="styleObject">
-    <span class="weather_city">{{fetchDataResult.name}}, {{fetchDataResult.sys.country}}</span>
+    <div class="weather_header">
+      <span>{{fetchDataResult.name}}</span>
+      <div
+        class="weather_header_clock"
+        v-bind:style="[styleObject, {boxShadow:'1px 1px '+styleObject.boxShadow2+', 0 0 0 1px '+styleObject.boxShadow1+',inset 5px 5px '+styleObject.boxShadow3}]"
+      >
+        <span>{{clock}}</span>
+      </div>
+    </div>
+
     <div class="weather_icon">
+      <span class="weather_icon_contry"> {{fetchDataResult.sys.country}}</span>
       <img :src="img" alt="icon" v-bind:style="styleObject" />
       <div>
         <span>Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
@@ -19,7 +29,6 @@
         <span>{{fetchDataResult.wind.deg}}hPa</span>
       </div>
     </div>
-
     <div class="weather_humidity">
       <div>
         <Icon icon="material-symbols:humidity-percentage" height="20" />
@@ -75,7 +84,6 @@ interface fetchDataResult {
   };
 }
 
-
 import { defineComponent, ref, PropType } from "vue";
 import { Icon } from "@iconify/vue";
 export default defineComponent({
@@ -89,15 +97,28 @@ export default defineComponent({
   setup(props) {
     let img = `http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`;
 
+    let clock = ref<string>("");
+    function timer() {
+      let date = new Date(),
+        hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+        minutes =
+          date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+        seconds =
+          date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      clock.value = hours + ":" + minutes + ":" + seconds;
+    }
+    setInterval(timer, 1000);
+    timer();
+
     let styleObject = ref(props.styleObject);
-    return { img, styleObject };
+
+    return { img, styleObject, clock };
   }
 });
 </script>
 
 <style lang="scss" scoped>
 .weather {
-
   color: rgb(255, 255, 255);
   background: rgb(0, 0, 0);
   display: flex;
@@ -105,6 +126,7 @@ export default defineComponent({
   justify-content: space-between;
   gap: 5px;
   width: 100%;
+  max-height: 280px;
   font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
@@ -113,6 +135,7 @@ export default defineComponent({
     5px 5px rgb(192, 192, 192);
 
   .weather_icon {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -123,10 +146,31 @@ export default defineComponent({
       box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
         5px 5px rgb(192, 192, 192), 5px 5px 0 1px rgba(255, 0, 0, 0.712);
     }
+    .weather_icon_contry{
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
   }
-  .weather_city {
+  .weather_header {
     font-size: 18px;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    .weather_header_clock {
+      align-self: baseline;
+      width: 30%;
+      min-width: 85px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      padding-bottom: 5px;
+      padding-top: 8px;
+      padding-left: 10px;
+      padding-right: 2px;
+      margin-left:5px ;
+      box-shadow: inset 5px 5px 5px black;
+    }
   }
   .weather_wind,
   .weather_humidity,

@@ -306,7 +306,7 @@ export default defineComponent({
   font-family: Mona;
   font-weight: 600;
   max-width: 350px;
-  
+  min-width: 210px;
   display: flex;
   flex-direction: column;
   gap: 10px;
