@@ -75,10 +75,7 @@ interface fetchDataResult {
   };
 }
 
-interface styleObject{
-  background:String
-borderColor:String
-}
+
 
 import { defineComponent, ref, PropType } from "vue";
 import { Icon } from "@iconify/vue";

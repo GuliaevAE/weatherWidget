@@ -3,29 +3,28 @@
     <div class="options_header">Settings</div>
     <div class="options_items">
       <div
-      @mousedown="mousedown"
-      @mouseup="mouseup"
-      class="options_city"
-      v-for="(item,k) in fetchDataResultCity"
-      :key="item"
-      :data-id="k"
-      :class="{ active: from==k }"
-    >
-      <div class="options_city_icon" :data-id="k">
-        <Icon :data-id="k" icon="material-symbols:menu" height="25" />
-      </div>
+        @mousedown="mousedown"
+        @mouseup="mouseup"
+        class="options_city"
+        v-for="(item,k) in fetchDataResultCity"
+        :key="item"
+        :data-id="k"
+        :class="{ active: from==k }"
+      >
+        <div class="options_city_icon" :data-id="k">
+          <Icon :data-id="k" icon="material-symbols:menu" height="25" />
+        </div>
 
-      <span :data-id="k">{{item}}</span>
-      <Icon
-        @click="deleteFetchDataResult"
-        :data-del="item"
-        class="options_city_delete"
-        icon="ic:baseline-delete"
-        height="25"
-      />
+        <span :data-id="k">{{item}}</span>
+        <Icon
+          @click="deleteFetchDataResult"
+          :data-del="item"
+          class="options_city_delete"
+          icon="ic:baseline-delete"
+          height="25"
+        />
+      </div>
     </div>
-    </div>
-    
 
     <span>Add Location:</span>
     <div class="options_addCity">
@@ -99,13 +98,13 @@ export default defineComponent({
   box-sizing: border-box;
   padding: 10px;
   gap: 5px;
-  
+
   background: rgb(0, 0, 0);
   border-radius: 15px;
   box-shadow: 5px 5px rgba(128, 128, 128, 0.712);
   color: white;
 
-  .options_items{
+  .options_items {
     overflow-y: scroll;
     padding-right: 5px;
     &::-webkit-scrollbar {
@@ -117,7 +116,7 @@ export default defineComponent({
       border-radius: 5px;
     }
   }
-  
+
   .options_header {
     font-weight: 700;
   }
