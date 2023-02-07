@@ -6,7 +6,7 @@
         class="weather_header_clock"
         v-bind:style="[styleObject, {boxShadow:'-1px -1px '+styleObject.boxShadow1+', 0 0 0 0.5px '+styleObject.boxShadow2+',inset 5px 5px '+styleObject.boxShadow3+',   inset    5.5px 5.5px 0 '+styleObject.boxShadow1+',inset 5px 5px 0 0.5px '+styleObject.boxShadow2}]"
       >
-        <span>{{clock}}</span>
+        <span ref="weatherHeaderClock">{{clock}}</span>
       </div>
     </div>
 
@@ -161,6 +161,7 @@ export default defineComponent({
     timer();
 
     const weathericonModule = ref(null);
+    const weatherHeaderClock = ref(null);
 
     onMounted(() => {
       weathericonModule.value.style.boxShadow = "none";
@@ -192,18 +193,29 @@ export default defineComponent({
             boxShadow: `0px -2px ${styleObject.value.color}`,
             transform: "translate(5px,5px)"
           },
-          
+
           { boxShadow: "none", transform: "translate(5px,5px)" },
-          { boxShadow: `0 0 0 1px ${styleObject.value.boxShadow1}`, transform: "translate(5px,5px)" },
-          
+          {
+            boxShadow: `0 0 0 1px ${styleObject.value.boxShadow1}`,
+            transform: "translate(5px,5px)"
+          },
+
           { boxShadow: styleObject.value.boxShadow, transform: "none" }
         ],
         {
           delay: 1500,
           duration: 1000,
-          easing: "ease-out"
+          easing: "ease"
         }
       );
+      weatherHeaderClock.value.style.position = "relative";
+      weatherHeaderClock.value.style.top = "30px";
+      weatherHeaderClock.value.animate([{ top: "30px" }, { top: "0" }], {
+        delay: 1500,
+        duration: 1000,
+        easing: "ease-out",
+        fill:'forwards'
+      });
     });
 
     function punchOnButoon(e) {
@@ -227,7 +239,8 @@ export default defineComponent({
       clock,
       actionIcon,
       punchOnButoon,
-      weathericonModule
+      weathericonModule,
+      weatherHeaderClock
     };
   }
 });
@@ -254,7 +267,7 @@ export default defineComponent({
   justify-content: space-between;
   gap: 5px;
   width: 100%;
-
+z-index: 1;
   font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
@@ -308,6 +321,7 @@ export default defineComponent({
     text-transform: uppercase;
     .weather_header_clock {
       position: relative;
+      overflow: hidden;
       align-self: baseline;
       width: 30%;
       min-width: 85px;

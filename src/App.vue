@@ -11,27 +11,26 @@
           :styleObject="styleObject"
         />
       </KeepAlive>
-      <KeepAlive>
-        <Options
-          v-if="switcher==='Option'"
-          :styleObject="styleObject"
-          @remove="[this.fetchDataResult[$event.from], this.fetchDataResult[$event.to]] = [this.fetchDataResult[$event.to], this.fetchDataResult[$event.from]]"
-          @del=" fetchDataResult=fetchDataResult.filter(x=>x.name!==$event)"
-          :addData="addData"
-          :deleteFetchDataResult="deleteFetchDataResult"
-          :error="error"
-          :fetchDataResultCity="fetchDataResultCity"
-        />
-      </KeepAlive>
-      <KeepAlive>
-        <Color
-          v-if="switcher==='Color'"
-          :changeStyle="changeStyle"
-          :styleObject="styleObject"
-          :setDefaultStyle="setDefaultStyle"
-        />
-      </KeepAlive>
-      <div class="container_wethers_minimenu">
+
+      <Options
+        v-if="switcher==='Option'"
+        :styleObject="styleObject"
+        @remove="[this.fetchDataResult[$event.from], this.fetchDataResult[$event.to]] = [this.fetchDataResult[$event.to], this.fetchDataResult[$event.from]]"
+        @del=" fetchDataResult=fetchDataResult.filter(x=>x.name!==$event)"
+        :addData="addData"
+        :deleteFetchDataResult="deleteFetchDataResult"
+        :error="error"
+        :fetchDataResultCity="fetchDataResultCity"
+      />
+
+      <Color
+        v-if="switcher==='Color'"
+        :changeStyle="changeStyle"
+        :styleObject="styleObject"
+        :setDefaultStyle="setDefaultStyle"
+      />
+
+      <div class="container_wethers_minimenu" ref="menu">
         <div class="container_wethers_minimenu_settings" :style="styleObject">
           <Icon
             class="container_wethers_minimenu_settings_icon"
@@ -89,7 +88,7 @@
 
 <script lang="ts">
 import axios from "axios";
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
 import Weather from "./components/Weather.vue";
 import Options from "./components/Options.vue";
 import Color from "./components/Color.vue";
@@ -130,6 +129,20 @@ export default defineComponent({
         speed: 5.66
       }
     };
+
+    const menu = ref(null);
+    onMounted(() => {
+      menu.value.style.zIndex = 0;
+      menu.value.style.transform = "translate(-115%, 0)";
+      menu.value.animate(
+        [
+          { transform: "translate(-115%, 0)" },
+          { transform: "translate(5px, 0)" },
+          { transform: "translate(-1px, 0)", zIndex:1 }
+        ],
+        { delay: 1500, duration: 1000, easing: "ease-in", fill: "forwards" }
+      );
+    });
 
     let error = ref<string>("");
     const fetchDataResult = ref<any[]>([заглушка]);
@@ -268,7 +281,8 @@ export default defineComponent({
       boxShadow1,
       boxShadow2,
       boxShadow3,
-      setDefaultStyle
+      setDefaultStyle,
+      menu
     };
   }
 });
@@ -326,19 +340,19 @@ export default defineComponent({
     .container_wethers_minimenu {
       display: flex;
       flex-direction: column;
+
       gap: 5px;
       z-index: 1;
       .container_wethers_minimenu_settings,
       .container_wethers_minimenu_arrows {
-        height: 50%;
+        height: 100%;
         padding: 15px 5px;
         border-radius: 15px;
         background: #000000;
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        align-items: center;
         justify-content: space-around;
+        align-items: center;
         box-shadow: 1px 1px #bb00ff, 0 0 0px 0.5px #ffffff, 5px 5px #000000;
 
         .container_wethers_minimenu_settings_icon {
