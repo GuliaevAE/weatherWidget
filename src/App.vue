@@ -219,18 +219,18 @@ export default defineComponent({
       this.countOfWeather = swtcher;
     }
 
-    let boxShadow1 = ref<string>("#f70303");
-    let boxShadow2 = ref<string>("#000000");
-    let boxShadow3 = ref<string>("#c0c0c0");
+    let boxShadow1 = ref<string>("#d203f7");
+    let boxShadow2 = ref<string>("#04d1ff");
+    let boxShadow3 = ref<string>("#000000");
 
     let styleObject = ref({
       boxShadow1: boxShadow1.value,
       boxShadow2: boxShadow2.value,
       boxShadow3: boxShadow3.value,
 
-      background: "#ffffff",
+      background: "#575757",
       boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`,
-      color: "#f70303"
+      color: "#ffffff"
     });
 
     function changeStyle(e, tag) {
@@ -262,14 +262,14 @@ export default defineComponent({
     }
 
     function setDefaultStyle() {
-      boxShadow1.value = "#f70303";
-      boxShadow2.value = "#000000";
-      boxShadow3.value = "#c0c0c0";
+      boxShadow1.value = "#d203f7";
+      boxShadow2.value = "#04d1ff";
+      boxShadow3.value = "#000000";
       styleObject.value.boxShadow1=boxShadow1.value
       styleObject.value.boxShadow2=boxShadow2.value
       styleObject.value.boxShadow3=boxShadow3.value
-      styleObject.value.background = "#000000";
-      styleObject.value.color = "#f70303";
+      styleObject.value.background = "#575757";
+      styleObject.value.color = "#ffffff";
       styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
     }
     return {
@@ -350,8 +350,8 @@ z-index: 1;
         gap: 10px;
         align-items: center;
         justify-content: space-around;
-        box-shadow: 1px 1px #f70303, 0 0 0px 0.5px #ececec,
-          5px 5px #c0c0c0;
+        box-shadow: 1px 1px #bb00ff, 0 0 0px 0.5px #ffffff,
+          5px 5px #000000;
 
         .container_wethers_minimenu_settings_icon {
           color: white;
