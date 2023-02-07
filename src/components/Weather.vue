@@ -226,7 +226,7 @@ export default defineComponent({
     
   }
   .weather_header {
-    min-height: 45px;
+    min-height: 46px;
     font-size: 18px;
     display: flex;
     justify-content: space-between;
