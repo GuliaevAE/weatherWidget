@@ -11,8 +11,13 @@
     </div>
 
     <div class="weather_icon">
-      <span class="weather_icon_contry"> {{fetchDataResult.sys.country}}</span>
-      <img :src="img" alt="icon" v-bind:style="styleObject" />
+      <span class="weather_icon_contry">{{fetchDataResult.sys.country}}</span>
+
+      <div class="img" v-bind:style="styleObject" >
+        <Icon :icon="img" height="40" />
+        <!-- <img :src="img1" alt="icon" v-bind:style="styleObject" /> -->
+      </div>
+
       <div>
         <span>Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
       </div>
@@ -84,7 +89,7 @@ interface fetchDataResult {
   };
 }
 
-import { defineComponent, ref, PropType } from "vue";
+import { defineComponent, ref, PropType, computed } from "vue";
 import { Icon } from "@iconify/vue";
 export default defineComponent({
   components: {
@@ -95,7 +100,30 @@ export default defineComponent({
     styleObject: Object
   },
   setup(props) {
-    let img = `http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`;
+    let img1 = ref(`http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`);
+    let img = computed((): string => {
+      switch (props.fetchDataResult.weather[0].icon) {
+        case "01d":
+          return "mdi:weather-sunny";
+        case "02d":
+          return "mdi:weather-partly-cloudy";
+        case "03d":
+          return "mdi:weather-cloudy";
+        case "04d":
+          return "fluent:weather-cloudy-24-regular";
+        case "09d":
+          return "material-symbols:weather-snowy-outline";
+        case "10d":
+          return "mdi:weather-partly-rainy";
+        case "11d":
+          return "mdi:weather-lightning";
+        case "13d":
+          return "typcn:weather-snow";
+        case "50d":
+          return "tabler:mist";
+      }
+     
+    });
 
     let clock = ref<string>("");
     function timer() {
@@ -112,7 +140,7 @@ export default defineComponent({
 
     let styleObject = ref(props.styleObject);
 
-    return { img, styleObject, clock };
+    return { img, img1, styleObject, clock };
   }
 });
 </script>
@@ -140,13 +168,14 @@ export default defineComponent({
     align-items: center;
     gap: 10px;
     margin-bottom: 5px;
-    img {
+    .img {
+      padding: 18px;
       background: rgba(18, 49, 205, 0);
       border-radius: 15px;
       box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
         5px 5px rgb(192, 192, 192), 5px 5px 0 1px rgba(255, 0, 0, 0.712);
     }
-    .weather_icon_contry{
+    .weather_icon_contry {
       position: absolute;
       top: 5px;
       left: 5px;
@@ -169,9 +198,9 @@ export default defineComponent({
       padding-top: 8px;
       padding-left: 10px;
       padding-right: 2px;
-      margin-left:5px ;
+      margin-left: 5px;
       box-shadow: inset 5px 5px 5px black;
-      font-size:17px
+      font-size: 17px;
     }
   }
   .weather_wind,

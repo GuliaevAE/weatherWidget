@@ -220,7 +220,7 @@ export default defineComponent({
     }
 
     let boxShadow1 = ref<string>("#f70303");
-    let boxShadow2 = ref<string>("#ececec");
+    let boxShadow2 = ref<string>("#000000");
     let boxShadow3 = ref<string>("#c0c0c0");
 
     let styleObject = ref({
@@ -228,9 +228,9 @@ export default defineComponent({
       boxShadow2: boxShadow2.value,
       boxShadow3: boxShadow3.value,
 
-      background: "#000000",
+      background: "#ffffff",
       boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`,
-      color: "#ffffff"
+      color: "#f70303"
     });
 
     function changeStyle(e, tag) {
@@ -263,13 +263,13 @@ export default defineComponent({
 
     function setDefaultStyle() {
       boxShadow1.value = "#f70303";
-      boxShadow2.value = "#ececec";
+      boxShadow2.value = "#000000";
       boxShadow3.value = "#c0c0c0";
       styleObject.value.boxShadow1=boxShadow1.value
       styleObject.value.boxShadow2=boxShadow2.value
       styleObject.value.boxShadow3=boxShadow3.value
       styleObject.value.background = "#000000";
-      styleObject.value.color = "#ffffff";
+      styleObject.value.color = "#f70303";
       styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
     }
     return {

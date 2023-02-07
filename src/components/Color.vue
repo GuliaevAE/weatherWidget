@@ -54,7 +54,6 @@ export default defineComponent({
   },
 
   setup(props) {
-
     let switcher = ref<string>("Background");
     let setDefaultStyle = props.setDefaultStyle;
     let changeStyle = props.changeStyle;
@@ -74,7 +73,7 @@ export default defineComponent({
   font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 35px;
   gap: 5px;
   min-width: 100px;
   min-height: 100px;
