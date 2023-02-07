@@ -226,10 +226,11 @@ export default defineComponent({
     
   }
   .weather_header {
+    min-height: 45px;
     font-size: 18px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    
     text-transform: uppercase;
     .weather_header_clock {
       position: relative;
