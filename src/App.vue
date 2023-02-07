@@ -165,7 +165,7 @@ export default defineComponent({
 
     let switcher = ref<string>("Weather");
 
-    let countOfWeather = ref<number>(1);
+    let countOfWeather = ref<number>(0);
     function selectNewWeather(switcher) {
       switch (switcher) {
         case "next":
