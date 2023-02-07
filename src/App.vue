@@ -133,7 +133,7 @@ export default defineComponent({
         speed: 5.66
       }
     };
-    
+
     let error = ref<string>("");
     const fetchDataResult = ref<any[]>([заглушка]);
 
@@ -193,8 +193,8 @@ export default defineComponent({
       boxShadow2: boxShadow2.value,
       boxShadow3: boxShadow3.value,
 
-      background: "#575757",
-      boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`,
+      background: "#575757", //   ↓под вопросом, последние две тени возможно уберу
+      boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}               , 5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${boxShadow2.value}`,
       color: "#ffffff"
     });
 
@@ -204,18 +204,18 @@ export default defineComponent({
           styleObject.value.background = e.target.value;
           break;
 
-        case "Box-shadow 1":
-          styleObject.value.boxShadow = `1px 1px ${e.target.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
+        case "Box-shadow 1": //   ↓под вопросом, последние две тени возможно уберу
+          styleObject.value.boxShadow = `1px 1px ${e.target.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value},           5.5px 5.5px 0 ${e.target.value}, 5px 5px 0 0.5px ${boxShadow2.value}`;
           boxShadow1.value = `${e.target.value}`;
 
           break;
-        case "Box-shadow 2":
-          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${e.target.value}, 5px 5px ${boxShadow3.value}`;
+        case "Box-shadow 2": //   ↓под вопросом, последние две тени возможно уберу
+          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${e.target.value}, 5px 5px ${boxShadow3.value},           5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${e.target.value}`;
           boxShadow2.value = `${e.target.value}`;
 
           break;
-        case "Box-shadow 3":
-          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${e.target.value}`;
+        case "Box-shadow 3": //   ↓под вопросом, последние две тени возможно уберу
+          styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${e.target.value},           5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${boxShadow2.value}`;
           boxShadow3.value = `${e.target.value}`;
 
           break;
@@ -230,12 +230,12 @@ export default defineComponent({
       boxShadow1.value = "#d203f7";
       boxShadow2.value = "#04d1ff";
       boxShadow3.value = "#000000";
-      styleObject.value.boxShadow1=boxShadow1.value
-      styleObject.value.boxShadow2=boxShadow2.value
-      styleObject.value.boxShadow3=boxShadow3.value
+      styleObject.value.boxShadow1 = boxShadow1.value;
+      styleObject.value.boxShadow2 = boxShadow2.value;
+      styleObject.value.boxShadow3 = boxShadow3.value;
       styleObject.value.background = "#575757";
-      styleObject.value.color = "#ffffff";
-      styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}`;
+      styleObject.value.color = "#ffffff"; //   ↓под вопросом, последние две тени возможно уберу
+      styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value},           5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${boxShadow2.value}`;
     }
     return {
       fetchDataResult,
@@ -282,8 +282,7 @@ export default defineComponent({
     overflow: hidden;
     gap: 5px;
     padding: 10px;
-    
-    
+
     padding-right: 10px;
     &::-webkit-scrollbar {
       width: 10px;
@@ -303,7 +302,7 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       gap: 5px;
-z-index: 1;
+      z-index: 1;
       .container_wethers_minimenu_settings,
       .container_wethers_minimenu_arrows {
         height: 50%;
@@ -315,8 +314,7 @@ z-index: 1;
         gap: 10px;
         align-items: center;
         justify-content: space-around;
-        box-shadow: 1px 1px #bb00ff, 0 0 0px 0.5px #ffffff,
-          5px 5px #000000;
+        box-shadow: 1px 1px #bb00ff, 0 0 0px 0.5px #ffffff, 5px 5px #000000;
 
         .container_wethers_minimenu_settings_icon {
           color: white;
@@ -350,24 +348,21 @@ z-index: 1;
   }
 }
 
-
 @media (max-width: 300px) {
-  .container{
-    .container_wethers{
+  .container {
+    .container_wethers {
       flex-direction: column;
-      .container_wethers_minimenu{
+      .container_wethers_minimenu {
         flex-direction: row;
-        
+
         .container_wethers_minimenu_settings,
         .container_wethers_minimenu_arrows {
           flex-direction: row;
           width: 50%;
         }
-       
       }
     }
   }
-  
 }
 </style>
 

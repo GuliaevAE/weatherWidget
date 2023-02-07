@@ -4,7 +4,7 @@
       <span>{{fetchDataResult.name}}</span>
       <div
         class="weather_header_clock"
-        v-bind:style="[styleObject, {boxShadow:'-1px -1px '+styleObject.boxShadow1+', 0 0 0 0.5px '+styleObject.boxShadow2+',inset 5px 5px '+styleObject.boxShadow3}]"
+        v-bind:style="[styleObject, {boxShadow:'-1px -1px '+styleObject.boxShadow1+', 0 0 0 0.5px '+styleObject.boxShadow2+',inset 5px 5px '+styleObject.boxShadow3+',   inset    5.5px 5.5px 0 '+styleObject.boxShadow1+',inset 5px 5px 0 0.5px '+styleObject.boxShadow2}]"
       >
         <span>{{clock}}</span>
       </div>
@@ -160,6 +160,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+
 @keyframes activeIcon {
   0% {
     transform: rotateY(0deg);
@@ -179,7 +181,7 @@ export default defineComponent({
   justify-content: space-between;
   gap: 5px;
   width: 100%;
-  max-height: 280px;
+  
   font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
@@ -240,12 +242,16 @@ export default defineComponent({
       box-sizing: border-box;
       border-radius: 10px;
       padding-bottom: 5px;
-      padding-top: 8px;
-      padding-left: 10px;
-      padding-right: 2px;
+     
+      padding-left: 8px;
+      padding-right: 1px;
       margin-left: 5px;
       box-shadow: inset 5px 5px 5px black;
       font-size: 17px;
+      //   ↓под вопросом,
+     span{
+      text-shadow: 5px 5px rgba(0, 0, 0, 0.333);
+     }
     }
   }
   .weather_wind,

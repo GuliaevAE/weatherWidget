@@ -100,7 +100,8 @@ export default defineComponent({
   box-sizing: border-box;
   padding: 10px;
   gap: 5px;
-
+  max-height: 280px;
+  
   background: rgb(0, 0, 0);
   border-radius: 15px;
   box-shadow: 5px 5px rgba(128, 128, 128, 0.712);
@@ -118,7 +119,7 @@ export default defineComponent({
     }
     &::-webkit-scrollbar-thumb {
       background: rgb(255, 255, 255);
-      border: 1px solid red;
+      
       border-radius: 5px;
     }
   }
