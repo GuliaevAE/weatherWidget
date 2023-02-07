@@ -138,7 +138,7 @@ export default defineComponent({
         [
           { transform: "translate(-115%, 0)" },
           { transform: "translate(5px, 0)" },
-          { transform: "translate(-1px, 0)", zIndex:1 }
+          { transform: "translate(-1px, 0)", zIndex: 1 }
         ],
         { delay: 1500, duration: 1000, easing: "ease-in", fill: "forwards" }
       );
@@ -210,6 +210,7 @@ export default defineComponent({
       boxShadow1: boxShadow1.value,
       boxShadow2: boxShadow2.value,
       boxShadow3: boxShadow3.value,
+      textShadow: "none",
       background: "#575757", //   ↓под вопросом, последние две тени возможно уберу
       boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}               , 5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${boxShadow2.value}`,
       color: "#ffffff"
@@ -234,6 +235,11 @@ export default defineComponent({
           break;
         case "Color":
           styleObject.value.color = `${e.target.value}`;
+          if (styleObject.value.color === styleObject.value.background) {
+            styleObject.value.textShadow = `0 1px 1px ${styleObject.value.boxShadow1}, -1px 0 1px ${styleObject.value.boxShadow1}, 0 -1px 1px ${styleObject.value.boxShadow1} `;
+          } else {
+            styleObject.value.textShadow = "none";
+          }
           break;
       }
     }
@@ -254,9 +260,9 @@ export default defineComponent({
     let LSstyles = JSON.parse(localStorage.getItem("widgetStyle"));
     if (LSstyles) {
       styleObject.value = LSstyles;
-      boxShadow1.value = LSstyles.boxShadow1
-      boxShadow2.value = LSstyles.boxShadow2
-      boxShadow3.value = LSstyles.boxShadow3
+      boxShadow1.value = LSstyles.boxShadow1;
+      boxShadow2.value = LSstyles.boxShadow2;
+      boxShadow3.value = LSstyles.boxShadow3;
     }
 
     //проверяется локация клиента, при ее отсутствии в массиве остается заглушка

@@ -2,10 +2,7 @@
   <div class="weather" v-bind:style="styleObject">
     <div class="weather_header">
       <span>{{fetchDataResult.name}}</span>
-      <div
-        class="weather_header_clock"
-        v-bind:style="[styleObject, {boxShadow:'-1px -1px '+styleObject.boxShadow1+', 0 0 0 0.5px '+styleObject.boxShadow2+',inset 5px 5px '+styleObject.boxShadow3+',   inset    5.5px 5.5px 0 '+styleObject.boxShadow1+',inset 5px 5px 0 0.5px '+styleObject.boxShadow2}]"
-      >
+      <div class="weather_header_clock" v-bind:style="[styleObject,styleObjForClock ]">
         <span ref="weatherHeaderClock">{{clock}}</span>
       </div>
     </div>
@@ -19,7 +16,6 @@
         @mousedown="punchOnButoon($event)"
       >
         <span class="weather_iconModule_contry" ref="buttonItem1">{{fetchDataResult.sys.country}}</span>
-
         <Icon
           icon="material-symbols:toggle-on-outline"
           class="weather_iconModule_actionSwitcher"
@@ -115,6 +111,21 @@ export default defineComponent({
   },
   setup(props) {
     let styleObject = ref(props.styleObject);
+    let styleObjForClock = computed(() => {
+      return {
+        boxShadow:
+          "-1px -1px " +
+          styleObject.value.boxShadow1 +
+          ", 0 0 0 0.5px " +
+          styleObject.value.boxShadow2 +
+          ",inset 5px 5px " +
+          styleObject.value.boxShadow3 +
+          ",   inset    5.5px 5.5px 0 " +
+          styleObject.value.boxShadow1 +
+          ",inset 5px 5px 0 0.5px " +
+          styleObject.value.boxShadow2
+      };
+    });
     let actionIcon = ref<boolean>(false);
     let img = computed((): string => {
       switch (props.fetchDataResult.weather[0].icon.slice(0, 2)) {
@@ -186,13 +197,11 @@ export default defineComponent({
             boxShadow: `0px -2px ${styleObject.value.color}`,
             transform: "translate(5px,5px)"
           },
-
           { boxShadow: "none", transform: "translate(5px,5px)" },
           {
             boxShadow: `0 0 0 1px ${styleObject.value.boxShadow1}`,
             transform: "translate(5px,5px)"
           },
-
           { boxShadow: styleObject.value.boxShadow, transform: "none" }
         ],
         {
@@ -211,17 +220,20 @@ export default defineComponent({
       });
 
       buttonItem1.value.style.transform = "translateX(-50px)";
-      buttonItem1.value.animate([
+      buttonItem1.value.animate(
+        [
+          {
+            transform: "translateX(-50px)"
+          },
+          { transform: "none" }
+        ],
         {
-          transform: "translateX(-50px)"
-        },
-        {transform: "none"}
-      ],{
-        delay: 1500,
-        duration: 1000,
-        easing: "ease-out",
-        fill: "forwards"
-      });
+          delay: 1500,
+          duration: 1000,
+          easing: "ease-out",
+          fill: "forwards"
+        }
+      );
     });
 
     function punchOnButoon(e) {
@@ -247,7 +259,8 @@ export default defineComponent({
       punchOnButoon,
       weathericonModule,
       weatherHeaderClock,
-      buttonItem1
+      buttonItem1,
+      styleObjForClock
     };
   }
 });
@@ -290,6 +303,7 @@ export default defineComponent({
     margin-bottom: 5px;
 
     .img {
+      align-self: baseline;
       overflow: hidden;
       cursor: pointer;
       position: relative;
