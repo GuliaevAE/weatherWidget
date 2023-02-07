@@ -161,7 +161,7 @@ export default defineComponent({
     timer();
 
     const weathericonModule = ref(null);
-    
+
     onMounted(() => {
       weathericonModule.value.style.boxShadow = "none";
       setTimeout(() => (actionIcon.value = true), 2100);
@@ -173,32 +173,35 @@ export default defineComponent({
           },
           { boxShadow: "none", transform: "translate(5px,5px)" },
           {
-            boxShadow: `0px -1px ${styleObject.value.boxShadow1}`,
+            boxShadow: `0px -2px ${styleObject.value.color}`,
             transform: "translate(5px,5px)"
           },
           {
-            boxShadow: `1px 0px ${styleObject.value.boxShadow1}`,
+            boxShadow: `2px 0px ${styleObject.value.color}`,
             transform: "translate(5px,5px)"
           },
           {
-            boxShadow: `0px 1px ${styleObject.value.boxShadow1}`,
+            boxShadow: `0px 2px ${styleObject.value.color}`,
             transform: "translate(5px,5px)"
           },
           {
-            boxShadow: `-1px 0px ${styleObject.value.boxShadow1}`,
+            boxShadow: `-2px 0px ${styleObject.value.color}`,
             transform: "translate(5px,5px)"
           },
           {
-            boxShadow: `0px -1px ${styleObject.value.boxShadow1}`,
+            boxShadow: `0px -2px ${styleObject.value.color}`,
             transform: "translate(5px,5px)"
           },
+          
           { boxShadow: "none", transform: "translate(5px,5px)" },
+          { boxShadow: `0 0 0 1px ${styleObject.value.boxShadow1}`, transform: "translate(5px,5px)" },
+          
           { boxShadow: styleObject.value.boxShadow, transform: "none" }
         ],
         {
           delay: 1500,
           duration: 1000,
-          easing: "ease-in-out"
+          easing: "ease-out"
         }
       );
     });
