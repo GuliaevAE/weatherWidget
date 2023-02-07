@@ -133,44 +133,9 @@ export default defineComponent({
         speed: 5.66
       }
     };
-    let заглушка2 = {
-      base: "stations",
-      clouds: { all: 20 },
-      cod: 200,
-      coord: { lat: 51.5085, lon: -0.1257 },
-      dt: 1675424072,
-      id: 2643743,
-      main: {
-        feels_like: 284.41,
-        humidity: 77,
-        pressure: 1030,
-        temp: 285.14,
-        temp_max: 286.08,
-        temp_min: 283.76
-      },
-
-      name: "gag2-London",
-      sys: {
-        country: "UK",
-        id: 2075535,
-        sunrise: 1675409784,
-        sunset: 1675443126,
-        type: 2
-      },
-
-      timezone: 0,
-      visibility: 10000,
-      weather: [
-        { id: 801, main: "Clouds", description: "few clouds", icon: "02d" }
-      ],
-
-      wind: {
-        deg: 260,
-        speed: 5.66
-      }
-    };
+    
     let error = ref<string>("");
-    const fetchDataResult = ref<any[]>([заглушка, заглушка2]);
+    const fetchDataResult = ref<any[]>([заглушка]);
 
     let fetchDataResultCity = computed((): string[] => {
       let subarr = [];
