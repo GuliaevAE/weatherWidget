@@ -11,7 +11,7 @@
     </div>
 
     <div class="weather_icon">
-      <span class="weather_icon_contry">{{fetchDataResult.sys.country}}</span>
+      <span class="weather_icon_contry">{{fetchDataResult.sys.country}}{{$props.fetchDataResult.weather[0].icon}}</span>
 
       <div class="img" v-bind:style="styleObject" >
         <Icon :icon="img" height="40" />
@@ -105,11 +105,19 @@ export default defineComponent({
       switch (props.fetchDataResult.weather[0].icon) {
         case "01d":
           return "mdi:weather-sunny";
+          case "01n":
+          return "mdi:weather-sunny";
         case "02d":
+          return "mdi:weather-partly-cloudy";
+          case "02n":
           return "mdi:weather-partly-cloudy";
         case "03d":
           return "mdi:weather-cloudy";
+          case "03n":
+          return "mdi:weather-cloudy";
         case "04d":
+          return "fluent:weather-cloudy-24-regular";
+          case "04n":
           return "fluent:weather-cloudy-24-regular";
         case "09d":
           return "material-symbols:weather-snowy-outline";
