@@ -11,7 +11,7 @@
     </div>
 
     <div class="weather_icon">
-      <span class="weather_icon_contry">{{fetchDataResult.sys.country}}{{$props.fetchDataResult.weather[0].icon}}</span>
+      <span class="weather_icon_contry">{{fetchDataResult.sys.country}}</span>
 
       <div class="img" v-bind:style="styleObject" >
         <Icon :icon="img" height="40" />
@@ -128,7 +128,7 @@ export default defineComponent({
         case "13d":
           return "typcn:weather-snow";
         case "50d":
-          return "tabler:mist";
+          return "mdi:weather-mist";
       }
      
     });
