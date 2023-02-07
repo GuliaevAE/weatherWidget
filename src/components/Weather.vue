@@ -104,9 +104,9 @@ export default defineComponent({
     styleObject: Object
   },
   setup(props) {
-    let img1 = ref(
-      `http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`
-    );
+    // let img1 = ref(
+    //   `http://openweathermap.org/img/wn/${props.fetchDataResult.weather[0].icon}@2x.png`
+    // );
     let img = computed((): string => {
       switch (props.fetchDataResult.weather[0].icon) {
         case "01d":
@@ -154,7 +154,7 @@ export default defineComponent({
 
     let styleObject = ref(props.styleObject);
 
-    return { img, img1, styleObject, clock, actionIcon };
+    return { img,  styleObject, clock, actionIcon };
   }
 });
 </script>

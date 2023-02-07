@@ -33,10 +33,12 @@
    
     <div class="color_buttons">
       <!-- <Icon icon="material-symbols:save" height="35" /> -->
-      <div>
-        <Icon @click="setDefaultStyle" icon="material-symbols:disabled-by-default" height="35"  />
-      </div>
       
+        <Icon @click="setDefaultStyle" icon="material-symbols:disabled-by-default" height="35"  />
+      
+        <Icon icon="material-symbols:save" @click="saveStyle(styleObject)" height="35"/>
+        <span>{{message}}</span>
+     
     </div>
   </div>
 </template>
@@ -58,8 +60,16 @@ export default defineComponent({
     let setDefaultStyle = props.setDefaultStyle;
     let changeStyle = props.changeStyle;
     let styleObject = ref(props.styleObject);
+      
+    let message = ref<string>('')
+    function saveStyle(obj){
+        localStorage.setItem('widgetStyle',JSON.stringify( obj))
+        message.value = "Style saved"
+        setTimeout(()=>message.value = '',1000)
+    }
     
-    return { changeStyle, styleObject, switcher, setDefaultStyle };
+
+    return { changeStyle, styleObject, switcher, setDefaultStyle,saveStyle, message };
   }
 });
 </script>
@@ -96,8 +106,10 @@ export default defineComponent({
   .color_buttons {
     position: absolute;
     bottom: 0;
+   
     width: 100%;
     display: flex;
+    align-items: center;
   }
   .color_item {
     display: flex;

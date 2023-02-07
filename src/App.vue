@@ -6,7 +6,7 @@
     <div class="container_wethers">
       <KeepAlive>
         <Weather
-          v-if="switcher==='Weather'"
+          v-if="switcher==='Weather' && fetchDataResult.length>0"
           :fetchDataResult="fetchDataResult[countOfWeather]"
           :styleObject="styleObject"
         />
@@ -112,7 +112,6 @@ export default defineComponent({
         temp_max: 286.08,
         temp_min: 283.76
       },
-
       name: "gag-London",
       sys: {
         country: "UK",
@@ -121,13 +120,11 @@ export default defineComponent({
         sunset: 1675443126,
         type: 2
       },
-
       timezone: 0,
       visibility: 10000,
       weather: [
         { id: 801, main: "Clouds", description: "few clouds", icon: "02d" }
       ],
-
       wind: {
         deg: 260,
         speed: 5.66
@@ -145,15 +142,24 @@ export default defineComponent({
       return subarr;
     });
 
-    async function addData() {
-      try {
-        let newWeather = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${this.newCity}&APPID=951a5575c7c37cd3967e7155d77171fd&units=metric`
-        );
-        fetchDataResult.value.push(newWeather.data);
-      } catch (error) {
-        this.error = "City entered incorrectly";
-        setTimeout(() => (this.error = ""), 1000);
+    async function addData(newCity, welcome = false) {
+      if (welcome) {
+        try {
+          let newWeather = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${newCity.lat}&lon=${newCity.lon}&appid=951a5575c7c37cd3967e7155d77171fd&units=metric`
+          );
+          fetchDataResult.value = [newWeather.data];
+        } catch (error) {}
+      } else {
+        try {
+          let newWeather = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${newCity}&APPID=951a5575c7c37cd3967e7155d77171fd&units=metric`
+          );
+          fetchDataResult.value.push(newWeather.data);
+        } catch (error) {
+          this.error = "City entered incorrectly";
+          setTimeout(() => (this.error = ""), 1000);
+        }
       }
     }
 
@@ -164,7 +170,6 @@ export default defineComponent({
     }
 
     let switcher = ref<string>("Weather");
-
     let countOfWeather = ref<number>(0);
     function selectNewWeather(switcher) {
       switch (switcher) {
@@ -192,7 +197,6 @@ export default defineComponent({
       boxShadow1: boxShadow1.value,
       boxShadow2: boxShadow2.value,
       boxShadow3: boxShadow3.value,
-
       background: "#575757", //   ↓под вопросом, последние две тени возможно уберу
       boxShadow: `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value}               , 5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${boxShadow2.value}`,
       color: "#ffffff"
@@ -203,25 +207,20 @@ export default defineComponent({
         case "Background":
           styleObject.value.background = e.target.value;
           break;
-
         case "Box-shadow 1": //   ↓под вопросом, последние две тени возможно уберу
           styleObject.value.boxShadow = `1px 1px ${e.target.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value},           5.5px 5.5px 0 ${e.target.value}, 5px 5px 0 0.5px ${boxShadow2.value}`;
           boxShadow1.value = `${e.target.value}`;
-
           break;
         case "Box-shadow 2": //   ↓под вопросом, последние две тени возможно уберу
           styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${e.target.value}, 5px 5px ${boxShadow3.value},           5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${e.target.value}`;
           boxShadow2.value = `${e.target.value}`;
-
           break;
         case "Box-shadow 3": //   ↓под вопросом, последние две тени возможно уберу
           styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${e.target.value},           5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${boxShadow2.value}`;
           boxShadow3.value = `${e.target.value}`;
-
           break;
         case "Color":
           styleObject.value.color = `${e.target.value}`;
-
           break;
       }
     }
@@ -237,6 +236,23 @@ export default defineComponent({
       styleObject.value.color = "#ffffff"; //   ↓под вопросом, последние две тени возможно уберу
       styleObject.value.boxShadow = `1px 1px ${boxShadow1.value}, 0 0 0px 0.5px ${boxShadow2.value}, 5px 5px ${boxShadow3.value},           5.5px 5.5px 0 ${boxShadow1.value}, 5px 5px 0 0.5px ${boxShadow2.value}`;
     }
+
+    //подгружаются стили из localstorage
+    let LSstyles = JSON.parse(localStorage.getItem("widgetStyle"));
+    if (LSstyles) {
+      styleObject.value = LSstyles;
+    }
+
+    //проверяется локация клиента, при ее отсутствии в массиве остается заглушка
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        addData(
+          { lat: position.coords.latitude, lon: position.coords.longitude },
+          true
+        );
+      });
+    }
+
     return {
       fetchDataResult,
       switcher,
@@ -252,7 +268,6 @@ export default defineComponent({
       boxShadow1,
       boxShadow2,
       boxShadow3,
-
       setDefaultStyle
     };
   }
@@ -266,6 +281,15 @@ export default defineComponent({
   font-family: Mona;
   src: url(./style/TestSöhne-Fett.otf);
 }
+@keyframes containerApperance {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .container {
   position: relative;
   font-family: Mona;
@@ -275,6 +299,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 10px;
+  animation: containerApperance 1.5s ease-in;
 
   .container_wethers {
     display: flex;
