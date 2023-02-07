@@ -18,7 +18,7 @@
         data-id="weather_iconModule-button"
         @mousedown="punchOnButoon($event)"
       >
-        <span class="weather_iconModule_contry">{{fetchDataResult.sys.country}}</span>
+        <span class="weather_iconModule_contry" ref="buttonItem1">{{fetchDataResult.sys.country}}</span>
 
         <Icon
           icon="material-symbols:toggle-on-outline"
@@ -117,7 +117,7 @@ export default defineComponent({
     let styleObject = ref(props.styleObject);
     let actionIcon = ref<boolean>(false);
     let img = computed((): string => {
-      switch (props.fetchDataResult.weather[0].icon.slice(0,2)) {
+      switch (props.fetchDataResult.weather[0].icon.slice(0, 2)) {
         case "01":
           return "mdi:weather-sunny";
         case "02":
@@ -133,7 +133,7 @@ export default defineComponent({
         case "11":
           return "mdi:weather-lightning";
         case "13":
-          return "typcn:weather-snow"; 
+          return "typcn:weather-snow";
         case "50":
           return "mdi:weather-mist";
       }
@@ -154,6 +154,7 @@ export default defineComponent({
 
     const weathericonModule = ref(null);
     const weatherHeaderClock = ref(null);
+    const buttonItem1 = ref(null);
 
     onMounted(() => {
       weathericonModule.value.style.boxShadow = "none";
@@ -208,6 +209,19 @@ export default defineComponent({
         easing: "ease-out",
         fill: "forwards"
       });
+
+      buttonItem1.value.style.transform = "translateX(-50px)";
+      buttonItem1.value.animate([
+        {
+          transform: "translateX(-50px)"
+        },
+        {transform: "none"}
+      ],{
+        delay: 1500,
+        duration: 1000,
+        easing: "ease-out",
+        fill: "forwards"
+      });
     });
 
     function punchOnButoon(e) {
@@ -232,7 +246,8 @@ export default defineComponent({
       actionIcon,
       punchOnButoon,
       weathericonModule,
-      weatherHeaderClock
+      weatherHeaderClock,
+      buttonItem1
     };
   }
 });
@@ -273,10 +288,13 @@ export default defineComponent({
     align-items: center;
     gap: 10px;
     margin-bottom: 5px;
+
     .img {
+      overflow: hidden;
       cursor: pointer;
       position: relative;
       padding: 18px;
+      min-width: fit-content;
       background: rgba(18, 49, 205, 0);
       border-radius: 15px;
       box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),

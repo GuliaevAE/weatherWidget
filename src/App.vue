@@ -254,6 +254,9 @@ export default defineComponent({
     let LSstyles = JSON.parse(localStorage.getItem("widgetStyle"));
     if (LSstyles) {
       styleObject.value = LSstyles;
+      boxShadow1.value = LSstyles.boxShadow1
+      boxShadow2.value = LSstyles.boxShadow2
+      boxShadow3.value = LSstyles.boxShadow3
     }
 
     //проверяется локация клиента, при ее отсутствии в массиве остается заглушка
