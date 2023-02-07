@@ -117,32 +117,24 @@ export default defineComponent({
     let styleObject = ref(props.styleObject);
     let actionIcon = ref<boolean>(false);
     let img = computed((): string => {
-      switch (props.fetchDataResult.weather[0].icon) {
-        case "01d":
+      switch (props.fetchDataResult.weather[0].icon.slice(0,2)) {
+        case "01":
           return "mdi:weather-sunny";
-        case "01n":
-          return "mdi:weather-sunny";
-        case "02d":
+        case "02":
           return "mdi:weather-partly-cloudy";
-        case "02n":
-          return "mdi:weather-partly-cloudy";
-        case "03d":
+        case "03":
           return "mdi:weather-cloudy";
-        case "03n":
-          return "mdi:weather-cloudy";
-        case "04d":
+        case "04":
           return "fluent:weather-cloudy-24-regular";
-        case "04n":
-          return "fluent:weather-cloudy-24-regular";
-        case "09d":
+        case "09":
           return "material-symbols:weather-snowy-outline";
-        case "10d":
+        case "10":
           return "mdi:weather-partly-rainy";
-        case "11d":
+        case "11":
           return "mdi:weather-lightning";
-        case "13d":
-          return "typcn:weather-snow";
-        case "50d":
+        case "13":
+          return "typcn:weather-snow"; 
+        case "50":
           return "mdi:weather-mist";
       }
     });
@@ -214,7 +206,7 @@ export default defineComponent({
         delay: 1500,
         duration: 1000,
         easing: "ease-out",
-        fill:'forwards'
+        fill: "forwards"
       });
     });
 
@@ -267,7 +259,7 @@ export default defineComponent({
   justify-content: space-between;
   gap: 5px;
   width: 100%;
-z-index: 1;
+  z-index: 1;
   font-size: 15px;
   box-sizing: border-box;
   padding: 10px;
