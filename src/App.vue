@@ -382,7 +382,7 @@ export default defineComponent({
 
   .container_pagination {
     position: absolute;
-    bottom: -15px;
+    bottom: -10px;
     width: 100%;
     display: flex;
     justify-content: space-around;

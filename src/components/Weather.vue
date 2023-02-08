@@ -17,88 +17,94 @@
       >
         <span class="weather_iconModule_contry" ref="buttonItem1">{{fetchDataResult.sys.country}}</span>
         <Icon
-          
           icon="material-symbols:toggle-on-outline"
           class="weather_iconModule_actionSwitcher"
           :class="{ off :!actionIcon}"
           @click="actionIcon=!actionIcon"
           height="20"
         />
-        <div class="weather_iconModule_contry_icon" :class="{active:actionIcon}"  ref="weathericonModuleIcon">
-          <Icon :icon="img" height="40"/>
+        <div
+          class="weather_iconModule_contry_icon"
+          :class="{active:actionIcon}"
+          ref="weathericonModuleIcon"
+        >
+          <Icon :icon="img" height="40" />
         </div>
       </div>
 
-      <span
-        ref="feelingTemperature"
-      >Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
+      <div class="weather_iconModule_description" ref="feelingTemperature">
+        <span>Feels like {{fetchDataResult.main.feels_like}}°C.</span>
+        <span>{{fetchDataResult.weather[0].main}}.</span>
+        <span>{{fetchDataResult.weather[0].description}}.</span>
+      </div>
     </div>
 
     <div class="weather_parameters" ref="weatherParameters">
-      <div class="weather_parameters_wind">
+      <div class="weather_parameters_item">
         <div>
-          <Icon icon="ic:baseline-speed" height="20" />
+          <Icon icon="ic:baseline-speed" height="15" />
           <span>{{fetchDataResult.wind.speed}}m/s</span>
         </div>
 
         <div>
-          <Icon icon="mdi:compass" height="20" />
-          <span>{{fetchDataResult.wind.deg}}hPa</span>
+          <Icon icon="carbon:pressure-filled" height="15" />
+          <span>{{fetchDataResult.main.pressure }}hPa</span>
         </div>
-      </div>
-      <div class="weather_parameters_humidity">
         <div>
-          <Icon icon="material-symbols:humidity-percentage" height="20" />
+          <Icon icon="material-symbols:humidity-percentage" height="15" />
           <span>{{fetchDataResult.main.humidity}}%</span>
         </div>
         <div>
-          <Icon icon="mdi:dew-point" height="20" />
-          <span>0°C</span>
+          <Icon icon="carbon:temperature-min" height="15" />
+          <span>{{ fetchDataResult.main.temp_min }}°C</span>
         </div>
-      </div>
-      <div class="weather_parameters_visibility">
         <div>
-          <Icon icon="material-symbols:visibility" height="20" />
-          <span>{{fetchDataResult.visibility}}m</span>
+          <Icon icon="material-symbols:visibility" height="15" />
+          <span>{{fetchDataResult.visibility / 1000}}km</span>
+        </div>
+        <div>
+          <Icon icon="carbon:temperature-max" height="15" />
+          <span>{{fetchDataResult.main.temp_max}}°C</span>
         </div>
       </div>
+     
     </div>
   </div>
 </template>
 
 <script lang="ts">
 interface fetchDataResult {
-  base: String;
-  clouds: { all: Number };
-  cod: Number;
-  coord: { lat: Number; lon: Number };
-  dt: Number;
-  id: Number;
+  base: string;
+  clouds: { all: number };
+  cod: number;
+  coord: { lat: number; lon: number };
+  dt: number;
+  id: number;
   main: {
-    feels_like: Number;
-    humidity: Number;
-    pressure: Number;
-    temp: Number;
-    temp_max: Number;
-    temp_min: Number;
+    feels_like: number;
+    humidity: number;
+    pressure: number;
+    temp: number;
+    temp_max: number;
+    temp_min: number;
   };
 
-  name: String;
+  name: string;
   sys: {
-    country: String;
-    id: Number;
-    sunrise: Number;
-    sunset: Number;
-    type: Number;
+    country: string;
+    id: number;
+    sunrise: number;
+    sunset: number;
+    type: number;
   };
 
-  timezone: Number;
-  visibility: Number;
-  weather: [{ id: Number; main: String; description: String; icon: String }];
+  timezone: number;
+  visibility: number;
+  weather: [{ id: number; main: string; description: string; icon: string }];
 
   wind: {
-    deg: Number;
-    speed: Number;
+    deg: number;
+    speed: number;
   };
 }
 
@@ -194,7 +200,6 @@ export default defineComponent({
         { delay: 1500, duration: 1000, fill: "forwards", easing: "ease" }
       );
 
-      
       weathericonModuleIcon.value.animate(
         [
           {
@@ -314,12 +319,12 @@ export default defineComponent({
         e.currentTarget.animate(
           [
             { transform: "translate(0px,0px)" },
-            { boxShadow: "none", transform: "translate(5px,5px)" },
+            { boxShadow: `none`, transform: "translate(5px,5px)" },
             { boxShadow: oldBoxShadow, transform: "translate(0px,0px)" }
           ],
-          { duration: 500, easing: "ease" }
+          { duration: 700, easing: "ease" }
         );
-        actionIcon.value = !actionIcon.value;
+        setTimeout(() => (actionIcon.value = !actionIcon.value), 200);
       }
     }
 
@@ -383,9 +388,13 @@ export default defineComponent({
     position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 7%;
     margin-bottom: 5px;
 
+    .weather_iconModule_description {
+      display: flex;
+      flex-direction: column;
+    }
     .img {
       align-self: baseline;
       overflow: hidden;
@@ -448,18 +457,20 @@ export default defineComponent({
       }
     }
   }
-  .weather_parameters_wind,
+  .weather_parameters_item,
   .weather_parameters_humidity,
   .weather_parameters_visibility {
     display: flex;
-
+    flex-wrap: wrap;
+    justify-content: space-between;
     width: 100%;
-
+    gap: 5px;
+    font-size: 10px;
     div {
       display: flex;
-      width: 50%;
+      width: 31%;
       align-items: center;
-      gap: 5px;
+      gap: 2px;
     }
   }
 }
