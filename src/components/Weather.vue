@@ -192,7 +192,7 @@ export default defineComponent({
         { delay: 1500, duration: 1000, fill: "forwards", easing: "ease" }
       );
 
-      weathericonModule.value.style.boxShadow = "none";
+      // weathericonModule.value.style.boxShadow = "none";
       setTimeout(() => (actionIcon.value = true), 2100);
       weathericonModule.value.animate(
         [
