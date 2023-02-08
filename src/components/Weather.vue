@@ -40,34 +40,37 @@
     </div>
 
     <div class="weather_parameters" ref="weatherParameters">
-      <div class="weather_parameters_item">
+      <div class="weather_parameters_wind">
         <div>
-          <Icon icon="ic:baseline-speed" height="15" />
+          <Icon icon="ic:baseline-speed" height="20" />
           <span>{{fetchDataResult.wind.speed}}m/s</span>
         </div>
 
         <div>
-          <Icon icon="carbon:pressure-filled" height="15" />
+          <Icon icon="mdi:car-brake-low-pressure" height="20" />
           <span>{{fetchDataResult.main.pressure }}hPa</span>
         </div>
+      </div>
+      <div class="weather_parameters_humidity">
         <div>
-          <Icon icon="material-symbols:humidity-percentage" height="15" />
+          <Icon icon="material-symbols:humidity-percentage" height="20" />
           <span>{{fetchDataResult.main.humidity}}%</span>
         </div>
         <div>
-          <Icon icon="carbon:temperature-min" height="15" />
+          <Icon icon="carbon:temperature-min" height="20" />
           <span>{{ fetchDataResult.main.temp_min }}°C</span>
         </div>
+      </div>
+      <div class="weather_parameters_visibility">
         <div>
-          <Icon icon="material-symbols:visibility" height="15" />
+          <Icon icon="material-symbols:visibility" height="20" />
           <span>{{fetchDataResult.visibility / 1000}}km</span>
         </div>
         <div>
-          <Icon icon="carbon:temperature-max" height="15" />
+          <Icon icon="carbon:temperature-max" height="20" />
           <span>{{fetchDataResult.main.temp_max}}°C</span>
         </div>
       </div>
-     
     </div>
   </div>
 </template>
@@ -457,20 +460,18 @@ export default defineComponent({
       }
     }
   }
-  .weather_parameters_item,
+  .weather_parameters_wind,
   .weather_parameters_humidity,
   .weather_parameters_visibility {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+
     width: 100%;
-    gap: 5px;
-    font-size: 10px;
+
     div {
       display: flex;
-      width: 31%;
+      width: 50%;
       align-items: center;
-      gap: 2px;
+      gap: 5px;
     }
   }
 }
