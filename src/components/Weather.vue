@@ -258,7 +258,7 @@ export default defineComponent({
           easing: "ease"
         }
       );
-      weatherHeaderClock.value.style.position = "relative";
+     
       weatherHeaderClock.value.style.top = "30px";
       weatherHeaderClock.value.style.textShadow = "none";
       weatherHeaderClock.value.style.left = "5px";
@@ -456,6 +456,7 @@ export default defineComponent({
       font-size: 17px;
       //   ↓под вопросом,
       span {
+        position: relative;
         text-shadow: 5px 5px rgba(0, 0, 0, 0.333);
       }
     }
