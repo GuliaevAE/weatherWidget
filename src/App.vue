@@ -31,7 +31,7 @@
       />
 
       <div class="container_wethers_minimenu" ref="menu">
-        <div class="container_wethers_minimenu_settings" :style="styleObject">
+        <div class="container_wethers_minimenu_settings"  :style="styleObject">
           <Icon
             class="container_wethers_minimenu_settings_icon"
             @click="switcher='Weather'"
@@ -54,7 +54,7 @@
             :style="{color:styleObject.color}"
           />
         </div>
-        <div class="container_wethers_minimenu_arrows" :style="styleObject">
+        <div class="container_wethers_minimenu_arrows"  :style="styleObject">
           <Icon
             height="30"
             class="container_wethers_arrow"
@@ -131,14 +131,19 @@ export default defineComponent({
     };
 
     const menu = ref(null);
+    
     onMounted(() => {
+      
+      
       menu.value.style.zIndex = 0;
-      menu.value.style.transform = "translate(-115%, 0)";
+      menu.value.style.transform = "translate(-115%, 5px)";
+      menu.value.style.maxHeight = "100px";
+     
       menu.value.animate(
         [
-          { transform: "translate(-115%, 0)" },
+          {maxHeight : "50%", transform: "translate(-115%, 0)" },
           { transform: "translate(5px, 0)" },
-          { transform: "translate(-1px, 0)", zIndex: 1 }
+          { transform: "none", zIndex: 1 }
         ],
         { delay: 1500, duration: 1000, easing: "ease-in", fill: "forwards" }
       );
@@ -291,7 +296,7 @@ export default defineComponent({
       boxShadow2,
       boxShadow3,
       setDefaultStyle,
-      menu
+      menu,
     };
   }
 });
@@ -322,13 +327,12 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 10px;
-  animation: containerApperance 1.5s ease-in;
 
   .container_wethers {
     display: flex;
     height: 100%;
     overflow: hidden;
-    gap: 5px;
+    gap: 4px;
     padding: 10px;
 
     padding-right: 10px;

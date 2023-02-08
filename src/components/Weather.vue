@@ -1,7 +1,7 @@
 <template>
-  <div class="weather" v-bind:style="styleObject">
+  <div class="weather" ref="weatherContainer" v-bind:style="styleObject">
     <div class="weather_header">
-      <span>{{fetchDataResult.name}}</span>
+      <span ref="weatherHeaderCity">{{fetchDataResult.name}}</span>
       <div class="weather_header_clock" v-bind:style="[styleObject,styleObjForClock ]">
         <span ref="weatherHeaderClock">{{clock}}</span>
       </div>
@@ -28,36 +28,38 @@
         </div>
       </div>
 
-      <div>
-        <span>Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
-      </div>
+      <span
+        ref="feelingTemperature"
+      >Feels like {{fetchDataResult.main.feels_like}}°C. {{fetchDataResult.weather[0].main}}. {{fetchDataResult.weather[0].description}}.</span>
     </div>
 
-    <div class="weather_wind">
-      <div>
-        <Icon icon="ic:baseline-speed" height="20" />
-        <span>{{fetchDataResult.wind.speed}}m/s</span>
-      </div>
+    <div class="weather_parameters" ref="weatherParameters">
+      <div class="weather_parameters_wind">
+        <div>
+          <Icon icon="ic:baseline-speed" height="20" />
+          <span>{{fetchDataResult.wind.speed}}m/s</span>
+        </div>
 
-      <div>
-        <Icon icon="mdi:compass" height="20" />
-        <span>{{fetchDataResult.wind.deg}}hPa</span>
+        <div>
+          <Icon icon="mdi:compass" height="20" />
+          <span>{{fetchDataResult.wind.deg}}hPa</span>
+        </div>
       </div>
-    </div>
-    <div class="weather_humidity">
-      <div>
-        <Icon icon="material-symbols:humidity-percentage" height="20" />
-        <span>{{fetchDataResult.main.humidity}}%</span>
+      <div class="weather_parameters_humidity">
+        <div>
+          <Icon icon="material-symbols:humidity-percentage" height="20" />
+          <span>{{fetchDataResult.main.humidity}}%</span>
+        </div>
+        <div>
+          <Icon icon="mdi:dew-point" height="20" />
+          <span>0°C</span>
+        </div>
       </div>
-      <div>
-        <Icon icon="mdi:dew-point" height="20" />
-        <span>0°C</span>
-      </div>
-    </div>
-    <div class="weather_visibility">
-      <div>
-        <Icon icon="material-symbols:visibility" height="20" />
-        <span>{{fetchDataResult.visibility}}m</span>
+      <div class="weather_parameters_visibility">
+        <div>
+          <Icon icon="material-symbols:visibility" height="20" />
+          <span>{{fetchDataResult.visibility}}m</span>
+        </div>
       </div>
     </div>
   </div>
@@ -162,12 +164,34 @@ export default defineComponent({
     }
     setInterval(timer, 1000);
     timer();
-
+    const weatherContainer = ref(null);
+    const weatherHeaderCity = ref(null);
     const weathericonModule = ref(null);
     const weatherHeaderClock = ref(null);
     const buttonItem1 = ref(null);
+    const feelingTemperature = ref(null);
+    const weatherParameters = ref(null);
 
     onMounted(() => {
+      weatherContainer.value.animate(
+        [
+          {boxShadow:'none', transform : 'translate(5px, 5px)'},
+          {boxShadow:styleObject.value.boxShadow ,transform : 'none'},
+        ],
+        { duration: 1000, easing: "ease" }
+      );
+
+      weatherHeaderCity.value.style.transform = "translateY(-150%)";
+      weatherHeaderCity.value.animate(
+        [
+          { transform: "translateY(-150%)" },
+          {
+            transform: "none"
+          }
+        ],
+        { delay: 1500, duration: 1000, fill: "forwards", easing: "ease" }
+      );
+
       weathericonModule.value.style.boxShadow = "none";
       setTimeout(() => (actionIcon.value = true), 2100);
       weathericonModule.value.animate(
@@ -212,12 +236,23 @@ export default defineComponent({
       );
       weatherHeaderClock.value.style.position = "relative";
       weatherHeaderClock.value.style.top = "30px";
-      weatherHeaderClock.value.animate([{ top: "30px" }, { top: "0" }], {
+      weatherHeaderClock.value.style.textShadow = 'none'
+      weatherHeaderClock.value.style.left = '5px'
+      weatherHeaderClock.value.style.transform='translate(5px 5px)'
+      weatherHeaderClock.value.animate([{ top: "30px" }, { top: "5px" }], {
+        delay: 500,
+        duration: 1000,
+        easing: "ease-out",
+        fill: "forwards"
+      });
+      weatherHeaderClock.value.animate([{ top: "5px" }, { top: "0", left: '0', textShadow: '5px 5px #00000055' }], {
         delay: 1500,
         duration: 1000,
         easing: "ease-out",
         fill: "forwards"
       });
+
+
 
       buttonItem1.value.style.transform = "translateX(-50px)";
       buttonItem1.value.animate(
@@ -233,6 +268,23 @@ export default defineComponent({
           easing: "ease-out",
           fill: "forwards"
         }
+      );
+
+      feelingTemperature.value.style.transform = "translateX(150%)";
+      feelingTemperature.value.animate(
+        [{ transform: "translateX(150%)" }, { transform: "none" }],
+        { delay: 1500, duration: 1000, easing: "ease-out", fill: "forwards" }
+      );
+
+      weatherParameters.value.style.transform = "translateY(150%)";
+      weatherParameters.value.animate(
+        [
+          { transform: "translateY(150%)" },
+          {
+            transform: "none"
+          }
+        ],
+        { delay: 1500, duration: 1000, easing: "ease-out", fill: "forwards" }
       );
     });
 
@@ -257,10 +309,15 @@ export default defineComponent({
       clock,
       actionIcon,
       punchOnButoon,
+
+      weatherContainer,
       weathericonModule,
       weatherHeaderClock,
       buttonItem1,
-      styleObjForClock
+      styleObjForClock,
+      weatherHeaderCity,
+      feelingTemperature,
+      weatherParameters
     };
   }
 });
@@ -281,6 +338,7 @@ export default defineComponent({
 
 .weather {
   color: rgb(255, 255, 255);
+  overflow: hidden;
   background: rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
@@ -295,6 +353,11 @@ export default defineComponent({
   box-shadow: 1px 1px rgb(247, 3, 3), 0 0 0px 1px rgb(236, 236, 236),
     5px 5px rgb(192, 192, 192);
 
+  .weather_parameters {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
   .weather_iconModule {
     position: relative;
     display: flex;
@@ -364,9 +427,9 @@ export default defineComponent({
       }
     }
   }
-  .weather_wind,
-  .weather_humidity,
-  .weather_visibility {
+  .weather_parameters_wind,
+  .weather_parameters_humidity,
+  .weather_parameters_visibility {
     display: flex;
 
     width: 100%;
