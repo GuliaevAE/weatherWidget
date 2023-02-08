@@ -16,13 +16,15 @@
         @mousedown="punchOnButoon($event)"
       >
         <span class="weather_iconModule_contry" ref="buttonItem1">{{fetchDataResult.sys.country}}</span>
-        <Icon
+        <div class="weather_iconModule_actionSwitcher" :class="{ off :!actionIcon}" ref="buttonItem2">
+          <Icon
           icon="material-symbols:toggle-on-outline"
-          class="weather_iconModule_actionSwitcher"
-          :class="{ off :!actionIcon}"
-          @click="actionIcon=!actionIcon"
+          
+          
           height="20"
         />
+        </div>
+        
         <div
           class="weather_iconModule_contry_icon"
           :class="{active:actionIcon}"
@@ -40,18 +42,18 @@
     </div>
 
     <div class="weather_parameters" ref="weatherParameters">
-      <div class="weather_parameters_wind">
+      <div class="weather_parameters_row">
         <div>
           <Icon icon="ic:baseline-speed" height="20" />
           <span>{{fetchDataResult.wind.speed}}m/s</span>
         </div>
 
         <div>
-          <Icon icon="mdi:car-brake-low-pressure" height="20" />
+          <Icon icon="carbon:pressure-filled" height="20" />
           <span>{{fetchDataResult.main.pressure }}hPa</span>
         </div>
       </div>
-      <div class="weather_parameters_humidity">
+      <div class="weather_parameters_row">
         <div>
           <Icon icon="material-symbols:humidity-percentage" height="20" />
           <span>{{fetchDataResult.main.humidity}}%</span>
@@ -61,7 +63,7 @@
           <span>{{ fetchDataResult.main.temp_min }}°C</span>
         </div>
       </div>
-      <div class="weather_parameters_visibility">
+      <div class="weather_parameters_row">
         <div>
           <Icon icon="material-symbols:visibility" height="20" />
           <span>{{fetchDataResult.visibility / 1000}}km</span>
@@ -180,6 +182,7 @@ export default defineComponent({
     const weathericonModuleIcon = ref(null);
     const weatherHeaderClock = ref(null);
     const buttonItem1 = ref(null);
+    const buttonItem2 = ref(null)
     const feelingTemperature = ref(null);
     const weatherParameters = ref(null);
 
@@ -298,9 +301,27 @@ export default defineComponent({
         }
       );
 
-      feelingTemperature.value.style.transform = "translateX(150%)";
+      buttonItem2.value.style.right = "-50px";
+      buttonItem2.value.animate(
+        [
+          {
+            right: "-50px"
+          },
+          { right: "5px" }
+        ],
+        {
+         
+          duration: 1000,
+          easing: "ease-out",
+          fill: "forwards"
+        }
+      );
+
+      
+
+      feelingTemperature.value.style.transform = "translateX(170%)";
       feelingTemperature.value.animate(
-        [{ transform: "translateX(150%)" }, { transform: "none" }],
+        [{ transform: "translateX(170%)" }, { transform: "none" }],
         { delay: 1500, duration: 1000, easing: "ease-out", fill: "forwards" }
       );
 
@@ -342,6 +363,7 @@ export default defineComponent({
       weathericonModule,
       weatherHeaderClock,
       buttonItem1,
+      buttonItem2,
       styleObjForClock,
       weatherHeaderCity,
       feelingTemperature,
@@ -372,7 +394,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 5px;
+  
   width: 100%;
   z-index: 1;
   font-size: 15px;
@@ -397,6 +419,12 @@ export default defineComponent({
     .weather_iconModule_description {
       display: flex;
       flex-direction: column;
+      span{
+        &:first-letter{
+          text-transform: uppercase;
+        }
+      }
+     
     }
     .img {
       align-self: baseline;
@@ -461,18 +489,15 @@ export default defineComponent({
       }
     }
   }
-  .weather_parameters_wind,
-  .weather_parameters_humidity,
-  .weather_parameters_visibility {
+  .weather_parameters_row {
     display: flex;
-
     width: 100%;
-
     div {
       display: flex;
       width: 50%;
       align-items: center;
       gap: 5px;
+      
     }
   }
 }
