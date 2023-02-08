@@ -31,7 +31,7 @@
       />
 
       <div class="container_wethers_minimenu" ref="menu">
-        <div class="container_wethers_minimenu_settings"  :style="styleObject">
+        <div class="container_wethers_minimenu_settings" :style="styleObject">
           <Icon
             class="container_wethers_minimenu_settings_icon"
             @click="switcher='Weather'"
@@ -54,7 +54,7 @@
             :style="{color:styleObject.color}"
           />
         </div>
-        <div class="container_wethers_minimenu_arrows"  :style="styleObject">
+        <div class="container_wethers_minimenu_arrows" :style="styleObject">
           <Icon
             height="30"
             class="container_wethers_arrow"
@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-    <div class="container_pagination">
+    <div class="container_pagination" ref="containerPagination">
       <div
         class="container_pagination_item"
         v-bind:style="styleObject"
@@ -131,21 +131,25 @@ export default defineComponent({
     };
 
     const menu = ref(null);
-    
+    const containerPagination = ref(null);
     onMounted(() => {
-      
-      
       menu.value.style.zIndex = 0;
       menu.value.style.transform = "translate(-115%, 5px)";
       menu.value.style.maxHeight = "100px";
-     
       menu.value.animate(
         [
-          {maxHeight : "50%", transform: "translate(-115%, 0)" },
+          { maxHeight: "50%", transform: "translate(-115%, 0)" },
           { transform: "translate(5px, 0)" },
           { transform: "none", zIndex: 1 }
         ],
         { delay: 1500, duration: 1000, easing: "ease-in", fill: "forwards" }
+      );
+
+      
+      containerPagination.value.style.transform = "translateY(-100px)";
+      containerPagination.value.animate(
+        [{ transform: "translateY(-100px)" }, { transform: "none" }],
+        { delay: 1000, duration: 1500, fill: "forwards", easing: "ease-out" }
       );
     });
 
@@ -297,6 +301,7 @@ export default defineComponent({
       boxShadow3,
       setDefaultStyle,
       menu,
+      containerPagination
     };
   }
 });
@@ -389,12 +394,13 @@ export default defineComponent({
       background: black;
       box-shadow: 1px 1px #f70303, 0 0 0px 0.5px rgb(236, 236, 236),
         5px 5px rgba(192, 192, 192, 0.712);
-      transition: all 0.3s;
+      transition: all 0.2s ease-in;
       &:hover {
         transform: scale(1.4);
       }
       &.active {
-        background: rgb(255, 255, 255) !important;
+        transform: translate(5px, 5px) !important;
+        box-shadow: none !important;
       }
     }
   }

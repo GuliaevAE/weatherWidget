@@ -17,14 +17,15 @@
       >
         <span class="weather_iconModule_contry" ref="buttonItem1">{{fetchDataResult.sys.country}}</span>
         <Icon
+          
           icon="material-symbols:toggle-on-outline"
           class="weather_iconModule_actionSwitcher"
           :class="{ off :!actionIcon}"
           @click="actionIcon=!actionIcon"
           height="20"
         />
-        <div class="weather_iconModule_contry_icon" :class="{active:actionIcon}">
-          <Icon :icon="img" height="40" />
+        <div class="weather_iconModule_contry_icon" :class="{active:actionIcon}"  ref="weathericonModuleIcon">
+          <Icon :icon="img" height="40"/>
         </div>
       </div>
 
@@ -167,6 +168,7 @@ export default defineComponent({
     const weatherContainer = ref(null);
     const weatherHeaderCity = ref(null);
     const weathericonModule = ref(null);
+    const weathericonModuleIcon = ref(null);
     const weatherHeaderClock = ref(null);
     const buttonItem1 = ref(null);
     const feelingTemperature = ref(null);
@@ -175,8 +177,8 @@ export default defineComponent({
     onMounted(() => {
       weatherContainer.value.animate(
         [
-          {boxShadow:'none', transform : 'translate(5px, 5px)'},
-          {boxShadow:styleObject.value.boxShadow ,transform : 'none'},
+          { boxShadow: "none", transform: "translate(5px, 5px)" },
+          { boxShadow: styleObject.value.boxShadow, transform: "none" }
         ],
         { duration: 1000, easing: "ease" }
       );
@@ -192,7 +194,21 @@ export default defineComponent({
         { delay: 1500, duration: 1000, fill: "forwards", easing: "ease" }
       );
 
-      // weathericonModule.value.style.boxShadow = "none";
+      
+      weathericonModuleIcon.value.animate(
+        [
+          {
+            transform: "translateX(150%)"
+          },
+          {
+            transform: "none"
+          }
+        ],
+        { duration: 1300, easing: "ease-out" }
+      );
+
+      weathericonModule.value.style.color =
+        weathericonModule.value.style.background;
       setTimeout(() => (actionIcon.value = true), 2100);
       weathericonModule.value.animate(
         [
@@ -236,23 +252,27 @@ export default defineComponent({
       );
       weatherHeaderClock.value.style.position = "relative";
       weatherHeaderClock.value.style.top = "30px";
-      weatherHeaderClock.value.style.textShadow = 'none'
-      weatherHeaderClock.value.style.left = '5px'
-      weatherHeaderClock.value.style.transform='translate(5px 5px)'
+      weatherHeaderClock.value.style.textShadow = "none";
+      weatherHeaderClock.value.style.left = "5px";
+      weatherHeaderClock.value.style.transform = "translate(5px 5px)";
       weatherHeaderClock.value.animate([{ top: "30px" }, { top: "5px" }], {
         delay: 500,
         duration: 1000,
         easing: "ease-out",
         fill: "forwards"
       });
-      weatherHeaderClock.value.animate([{ top: "5px" }, { top: "0", left: '0', textShadow: '5px 5px #00000055' }], {
-        delay: 1500,
-        duration: 1000,
-        easing: "ease-out",
-        fill: "forwards"
-      });
-
-
+      weatherHeaderClock.value.animate(
+        [
+          { top: "5px" },
+          { top: "0", left: "0", textShadow: "5px 5px #00000055" }
+        ],
+        {
+          delay: 1500,
+          duration: 1000,
+          easing: "ease-out",
+          fill: "forwards"
+        }
+      );
 
       buttonItem1.value.style.transform = "translateX(-50px)";
       buttonItem1.value.animate(
@@ -317,7 +337,8 @@ export default defineComponent({
       styleObjForClock,
       weatherHeaderCity,
       feelingTemperature,
-      weatherParameters
+      weatherParameters,
+      weathericonModuleIcon
     };
   }
 });
